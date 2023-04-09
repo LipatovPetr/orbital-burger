@@ -33,4 +33,4 @@ OrderDetails.propTypes = {
     }).isRequired
   }
 
-  export default OrderDetails;
+  export default OrderDetails
