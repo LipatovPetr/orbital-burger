@@ -1,6 +1,6 @@
 import styles from './order-details.module.css';
 import imageCheck from '../../images/done.png';
-import { orderData } from '../ulils/data.js'
+import { orderData } from '../../utils/data.js'
 import PropTypes from 'prop-types';
 
 

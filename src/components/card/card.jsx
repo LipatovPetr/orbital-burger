@@ -7,12 +7,12 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-function Card({ data, item, setClickedIngredient, setIngredientsPopupOpen }) {
+function Card({ data, item, setClickedIngredient}) {
   const handleIngredientClick = (evt) => {
     const ingredientId = evt.currentTarget.dataset.id;
     const ingredientData = data.find((item) => item._id === ingredientId);
     setClickedIngredient(ingredientData);
-    setIngredientsPopupOpen(true);
+
   };
 
   return (
@@ -40,16 +40,24 @@ function Card({ data, item, setClickedIngredient, setIngredientsPopupOpen }) {
   );
 }
 
-export default Card;
-
 Card.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      type: PropTypes.string.isRequired,
+    })
+  ),
   item: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-  }).isRequired,
+    type: PropTypes.string.isRequired,
+  }),
   setClickedIngredient: PropTypes.func.isRequired,
-  setIngredientsPopupOpen: PropTypes.func.isRequired,
 };
+
+export default Card;

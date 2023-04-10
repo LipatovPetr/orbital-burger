@@ -7,7 +7,6 @@ function IngredientsGroup({
   type,
   data,
   setClickedIngredient,
-  setIngredientsPopupOpen,
 }) {
 
   const subgroupData = data.filter((item) => item.type === type);
@@ -21,7 +20,6 @@ function IngredientsGroup({
             item={item}
             key={item._id}
             setClickedIngredient={setClickedIngredient}
-            setIngredientsPopupOpen={setIngredientsPopupOpen}
           />
         ))}
       </div>
@@ -32,10 +30,17 @@ function IngredientsGroup({
 IngredientsGroup.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    calories: PropTypes.number.isRequired,
+  })).isRequired,
   setClickedIngredient: PropTypes.func.isRequired,
-  setIngredientsPopupOpen: PropTypes.func.isRequired,
-}
+};
+
 
 export default IngredientsGroup;
 
