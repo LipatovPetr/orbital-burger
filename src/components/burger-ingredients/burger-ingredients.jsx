@@ -5,14 +5,14 @@ import styles from "./burger-ingredients.module.css";
 import IngredientsGroup from "../ingredients-group/ingredients-group.jsx";
 import Modal from "../modal/modal.jsx";
 import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
-
+import { ingredientsTypes } from "../../utils/data.js"
 
 function BurgerIngredients({
   data,
   clickedIngredient,
   setClickedIngredient,
 }) {
-  const [current, setCurrent] = React.useState("Булки");
+  const [current, setCurrent] = React.useState(ingredientsTypes.buns);
 
   return (
     <div className={styles.section}>
@@ -21,14 +21,14 @@ function BurgerIngredients({
       </h1>
 
       <div className={styles.tab + " mt-5"}>
-        <Tab value="Булки" active={current === "Булки"}>
-          Булки
+        <Tab value={ ingredientsTypes.buns } active={current === ingredientsTypes.buns}>
+          { ingredientsTypes.buns }
         </Tab>
-        <Tab value="Соусы" active={current === "Соусы"}>
-          Соусы
+        <Tab value={ ingredientsTypes.buns }active={current === ingredientsTypes.buns}>
+          { ingredientsTypes.buns }
         </Tab>
-        <Tab value="Главное" active={current === "Главное"}>
-          Начинки
+        <Tab value={ ingredientsTypes.main } active={current === ingredientsTypes.main}>
+          { ingredientsTypes.main }
         </Tab>
       </div>
 
@@ -77,7 +77,7 @@ BurgerIngredients.propTypes = {
     image: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     calories: PropTypes.number.isRequired,
-  })).isRequired,
+  }).isRequired).isRequired,
   clickedIngredient: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -85,7 +85,7 @@ BurgerIngredients.propTypes = {
     image: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     calories: PropTypes.number.isRequired,
-  })).isRequired,
+  }).isRequired).isRequired,
   setClickedIngredient: PropTypes.func.isRequired,
   setIngredientsPopupOpen: PropTypes.func.isRequired,
 };
