@@ -1,3 +1,18 @@
-.app {
+.page {
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
     background-color: #131316;
-}
+  }
+  
+  .main {
+    max-width: 1280px;
+    height: 100%;
+    display: flex;
+    margin: 0 auto;
+    overflow: hidden;
+    gap: 40px;
+  }
+
+
