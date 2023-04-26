@@ -1,5 +1,6 @@
-import cn from "classnames";
+import React from "react";
 import PropTypes from "prop-types";
+import { useState } from "react";
 import styles from "./card.module.css";
 import {
   CurrencyIcon,
@@ -16,22 +17,22 @@ function Card({ data, item, setClickedIngredient}) {
 
   return (
     <div
-      className={cn(styles.card, "ml-4", "mt-6")}
+      className={styles.card + " ml-4 mt-6"}
       data-id={item._id}
       onClick={handleIngredientClick}
     >
       <img
-        className={cn(styles.cardImage, "mt-1", "ml-4")}
+        className={styles.cardImage + " mt-1 ml-4"}
         src={item.image}
         alt={item.name}
       ></img>
       <div
-        className={cn(styles.priceElement, "mt-1", "text", "text_type_digits-default")}
+        className={styles.priceElement + " mt-1 text text_type_digits-default"}
       >
-        <span className={cn(styles.price, "mr-2")}>{item.price}</span>
+        <span className={styles.price + " mr-2"}>{item.price}</span>
         <CurrencyIcon type="primary" />
       </div>
-      <p className={cn(styles.cardTitle, "mt-1", "text", "text_type_main-small")}>
+      <p className={styles.cardTitle + " mt-1 text text_type_main-small"}>
         {item.name}
       </p>
       <Counter count={0} size="default" extraClass="m-1" />

@@ -1,4 +1,4 @@
-import cn from "classnames";
+import React from "react";
 import {
   Logo,
   BurgerIcon,
@@ -13,15 +13,15 @@ function AppHeader() {
       <nav className={styles.navElement}>
         <div className={styles.navContent}>
           <div className={styles.navSubsection}>
-            <a className={cn(styles.button, "pl-5", "pr-5", "mb-4", "mt-4")}>
+            <a className={styles.button + " pl-5 pr-5 mb-4 mt-4"}>
               <BurgerIcon type="secondary" />
               <span className="text text_type_main-default ml-2">
                 Конструктор
               </span>
             </a>
-            <a className={cn(styles.button, "pl-5", "pr-5", "mb-4", "mt-4")}>
+            <a className={styles.button + " pl-5 pr-5 mb-4 mt-4"}>
               <ListIcon type="secondary" />
-              <span className={cn("text", "text_type_main-default", "text_color_inactive", "ml-2")}>
+              <span className="text text_type_main-default text_color_inactive ml-2">
                 Лента заказов
               </span>
             </a>

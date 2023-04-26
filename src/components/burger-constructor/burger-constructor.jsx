@@ -1,39 +1,74 @@
 import React from "react";
-import cn from "classnames";
+import PropTypes from "prop-types";
 import { useState } from "react";
 import {
+  ConstructorElement,
+  DragIcon,
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal.jsx";
 import styles from "./burger-constructor.module.css";
 import OrderDetails from "../order-details/order-details.jsx";
-import IngredientsList from "../ingredients-list/ingredients-list";
-import { postData } from "../../utils/api.js";
+import { orderData } from "../../utils/data.js";
 
-function BurgerConstructor() {
+function BurgerConstructor({ data }) {
   const [orderPopupIsOpen, setOrderPopupOpen] = useState(false);
-  const [orderData, setOrderData] = useState([]);
-  const [checkOutData, setCheckOutData] = useState({});
-  const [totalPrice, setTotalPrice] = useState(0);
+
+  const lockedIngredient = data.find(
+    (item) => item.name === "Краторная булка N-200i"
+  );
+
+  const totalPrice = data.reduce((sum, component) => sum + component.price, 0);
 
   const handleOrderClick = () => {
-    postData('https://norma.nomoreparties.space/api/orders', orderData)
-      .then(response => response.json())
-      .then(data => {
-        setCheckOutData(data); 
-        setOrderPopupOpen(data.success); 
-      })
-      .catch(error => console.error(error));
+    setOrderPopupOpen(true);
   };
 
   return (
     <div className={styles.section}>
-      <IngredientsList
-        setTotalPrice={setTotalPrice}
-        setOrderData={setOrderData}
-      />
-      <div className={cn(styles.orderInfo, "mt-10", "mr-4")}>
+      <div className={styles.ingredients + " mt-25"}>
+        {lockedIngredient && (
+          <div className={styles.ingredientContainer + " pl-4 pr-4"}>
+            <ConstructorElement
+              type="top"
+              isLocked={true}
+              text={`${lockedIngredient.name} (верх)`}
+              price={lockedIngredient.price}
+              thumbnail={lockedIngredient.image}
+            />
+          </div>
+        )}
+
+        <div className={styles.scrolledSection}>
+          {data.map((item) => (
+            <div
+              className={styles.ingredientContainer + " pl-4 pr-4"}
+              key={item._id}
+            >
+              <DragIcon type="primary" />
+              <ConstructorElement
+                text={item.name}
+                price={item.price}
+                thumbnail={item.image}
+              />
+            </div>
+          ))}
+        </div>
+        {lockedIngredient && (
+          <div className={styles.ingredientContainer + " pl-4 pr-4"}>
+            <ConstructorElement
+              type="bottom"
+              isLocked={true}
+              text={`${lockedIngredient.name} (низ)`}
+              price={lockedIngredient.price}
+              thumbnail={lockedIngredient.image}
+            />
+          </div>
+        )}
+      </div>
+
+      <div className={styles.orderInfo + " mt-10 mr-4"}>
         <div className={styles.priceContainer + " mr-10"}>
           <span className={styles.priceValue + " text text_type_digits-medium"}>
             {totalPrice}
@@ -53,7 +88,7 @@ function BurgerConstructor() {
 
       {orderPopupIsOpen && (
         <Modal popupCloseButtonHandler={setOrderPopupOpen}>
-          <OrderDetails checkOutData={checkOutData} />
+          <OrderDetails orderData={orderData} />
         </Modal>
       )}
     </div>
@@ -61,3 +96,15 @@ function BurgerConstructor() {
 }
 
 export default BurgerConstructor;
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      image: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  setOrderPopupOpen: PropTypes.func.isRequired,
+};
