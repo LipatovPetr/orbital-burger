@@ -1,7 +1,7 @@
 import styles from "./ingredients-list.module.css";
 import cn from "classnames";
-import { useContext, useEffect, useState } from "react";
-import { IngredientsContext } from "../../utils/ingredients-context.js";
+import { useEffect, useState } from "react";
+import { useSelector } from 'react-redux'
 
 import {
   ConstructorElement,
@@ -12,7 +12,7 @@ function IngredientsList({ setTotalPrice, setOrderData }) {
   const [chosenBun, setChosenBun] = useState(null);
   const [chosenStuffings, setChosenStuffings] = useState(null);
 
-  const ingredientsData = useContext(IngredientsContext);
+  const ingredientsData = useSelector(state => state.ingredients.data)
 
   useEffect(
     function updateChosenStuffings () {

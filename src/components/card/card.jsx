@@ -6,12 +6,20 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-function Card({ data, item, setClickedIngredient}) {
+import { useDispatch } from 'react-redux'
+import { ingredientClicked } from '../../services/ingredients-slice'
+import { popupOpened } from '../../services/modal-slice'
+
+
+ 
+function Card({ item }) {
+
+  const dispatch = useDispatch()
+
   const handleIngredientClick = (evt) => {
     const ingredientId = evt.currentTarget.dataset.id;
-    const ingredientData = data.find((item) => item._id === ingredientId);
-    setClickedIngredient(ingredientData);
-
+    dispatch(ingredientClicked(ingredientId));
+    dispatch(popupOpened());
   };
 
   return (

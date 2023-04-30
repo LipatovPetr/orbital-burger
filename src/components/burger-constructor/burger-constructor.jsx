@@ -18,13 +18,13 @@ function BurgerConstructor() {
   const [totalPrice, setTotalPrice] = useState(0);
 
   const handleOrderClick = () => {
-    postData('https://norma.nomoreparties.space/api/orders', orderData)
-      .then(response => response.json())
-      .then(data => {
-        setCheckOutData(data); 
-        setOrderPopupOpen(data.success); 
+    postData("https://norma.nomoreparties.space/api/orders", orderData)
+      .then((response) => response.json())
+      .then((data) => {
+        setCheckOutData(data);
+        setOrderPopupOpen(data.success);
       })
-      .catch(error => console.error(error));
+      .catch((error) => console.error(error));
   };
 
   return (

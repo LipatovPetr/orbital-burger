@@ -16,9 +16,9 @@
 }
 
 .menuSection {
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     background-color: #131316;
-
 }
 
 

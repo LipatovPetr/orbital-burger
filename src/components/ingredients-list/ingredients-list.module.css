@@ -1,28 +1,34 @@
 .ingredients {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-.scrolledSection { 
-    max-height: 496px;
-    overflow: scroll; 
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+.scrolledSection {
+  max-height: 496px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (max-height: 990px) {
+  .scrolledSection {
+    max-height: 400px;
+  }
 }
 
 .scrolledSection > :first-child {
-    margin-top: 16px;
-    }
-
+  margin-top: 16px;
+}
 
 .scrolledSection > :last-child {
-    margin-bottom: 16px;
-    }
+  margin-bottom: 16px;
+}
 
 .ingredientContainer {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 13.5px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 13.5px;
 }

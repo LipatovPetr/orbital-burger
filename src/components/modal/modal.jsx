@@ -4,22 +4,33 @@ import styles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { createPortal } from "react-dom";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { popupClosed } from "../../services/modal-slice";
+import { ingredientClickedRemoved } from '../../services/ingredients-slice'
 import ModalOverlay from "../modal-overlay/modal-overlay.jsx";
 
-
-function Modal({ children, title, popupCloseButtonHandler }) {
+function Modal({ children, title }) {
   const rootForModal = document.getElementById("modal");
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const handleEscape = (evt) => {
       if (evt.key === "Escape") {
-        popupCloseButtonHandler(false);
+        dispatch(popupClosed());
+        dispatch(ingredientClickedRemoved());
       }
     };
     document.addEventListener("keydown", handleEscape);
     return () => {
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [popupCloseButtonHandler]);
+  });
+
+  const handleCloseButton = () => {
+    dispatch(popupClosed());
+    dispatch(ingredientClickedRemoved());
+  }
 
   return createPortal(
     <>
@@ -31,7 +42,7 @@ function Modal({ children, title, popupCloseButtonHandler }) {
             </h2>
           )}
           <button
-            onClick={() => popupCloseButtonHandler(false)}
+            onClick={() => handleCloseButton()}
             className={styles.closeButton}
           >
             <CloseIcon type="primary" />
@@ -39,7 +50,7 @@ function Modal({ children, title, popupCloseButtonHandler }) {
         </div>
         {children}
       </section>
-      <ModalOverlay popupCloseButtonHandler={popupCloseButtonHandler} />
+      <ModalOverlay />
     </>,
     rootForModal
   );
