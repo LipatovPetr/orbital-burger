@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   data: [],
-  clickedIngredient: {},
   status: "idle",
   error: null,
 };
@@ -18,20 +17,7 @@ export const fetchData = createAsyncThunk("ingredients/fetchData", async () => {
 const ingredientsSlice = createSlice({
   name: "ingredients",
   initialState,
-  reducers: {
-    ingredientClicked(state, action) {
-      const ingredientId = action.payload;
-      const existingIngredient = state.data.find(
-        (item) => item._id === ingredientId
-      );
-      if (existingIngredient) {
-        state.clickedIngredient = existingIngredient;
-      }
-    },
-    ingredientClickedRemoved(state) {
-      state.clickedIngredient = {};
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchData.pending, (state) => {
@@ -50,4 +36,4 @@ const ingredientsSlice = createSlice({
 
 export default ingredientsSlice.reducer;
 
-export const { ingredientClicked, ingredientClickedRemoved } = ingredientsSlice.actions;
+

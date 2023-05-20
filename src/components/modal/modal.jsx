@@ -5,11 +5,9 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { createPortal } from "react-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { popupClosed } from "../../services/modal-slice";
-import { ingredientClickedRemoved } from '../../services/ingredients-slice'
 import ModalOverlay from "../modal-overlay/modal-overlay.jsx";
 
-function Modal({ children, title }) {
+function Modal({ children, title, popupClosed }) {
   const rootForModal = document.getElementById("modal");
 
   const dispatch = useDispatch();
@@ -18,7 +16,6 @@ function Modal({ children, title }) {
     const handleEscape = (evt) => {
       if (evt.key === "Escape") {
         dispatch(popupClosed());
-        dispatch(ingredientClickedRemoved());
       }
     };
     document.addEventListener("keydown", handleEscape);
@@ -29,8 +26,7 @@ function Modal({ children, title }) {
 
   const handleCloseButton = () => {
     dispatch(popupClosed());
-    dispatch(ingredientClickedRemoved());
-  }
+  };
 
   return createPortal(
     <>
@@ -50,16 +46,10 @@ function Modal({ children, title }) {
         </div>
         {children}
       </section>
-      <ModalOverlay />
+      <ModalOverlay popupClosed={popupClosed} />
     </>,
     rootForModal
   );
 }
-
-Modal.propTypes = {
-  children: PropTypes.node.isRequired,
-  title: PropTypes.string,
-  popupCloseButtonHandler: PropTypes.func.isRequired,
-};
 
 export default Modal;

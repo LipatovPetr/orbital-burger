@@ -1,38 +1,36 @@
-import React from "react";
 import cn from "classnames";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import ClipLoader from "react-spinners/ClipLoader";
 import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal.jsx";
 import styles from "./burger-constructor.module.css";
-import OrderDetails from "../order-details/order-details.jsx";
-import IngredientsList from "../ingredients-list/ingredients-list";
-import { postData } from "../../utils/api.js";
+import OrderDetails from "./order-details/order-details";
+import IngredientsList from "./ingredients-list/ingredients-list";
+import { useDispatch } from "react-redux";
+import { checkoutPopupOpened, checkoutPopupClosed} from "../../services/popup-checkout-details-slice";
+import { postData } from "../../services/order-slice";
+
 
 function BurgerConstructor() {
-  const [orderPopupIsOpen, setOrderPopupOpen] = useState(false);
-  const [orderData, setOrderData] = useState([]);
-  const [checkOutData, setCheckOutData] = useState({});
-  const [totalPrice, setTotalPrice] = useState(0);
+  const dispatch = useDispatch();
+  const totalPrice = useSelector(state => state.order.totalPrice)
+  const orderData = useSelector(state => state.order.orderList)
+  const orderPopupIsOpen = useSelector(state => state.checkoutPopup.opened)
+  const chosenBun = useSelector(state => state.burgerConstructor.bun)
+  const chosenStuffings = useSelector(state => state.burgerConstructor.stuffings)
 
   const handleOrderClick = () => {
-    postData("https://norma.nomoreparties.space/api/orders", orderData)
-      .then((response) => response.json())
-      .then((data) => {
-        setCheckOutData(data);
-        setOrderPopupOpen(data.success);
-      })
-      .catch((error) => console.error(error));
+    dispatch(postData(orderData))
+    dispatch(checkoutPopupOpened())
   };
 
   return (
     <div className={styles.section}>
-      <IngredientsList
-        setTotalPrice={setTotalPrice}
-        setOrderData={setOrderData}
-      />
+      <IngredientsList/>
       <div className={cn(styles.orderInfo, "mt-10", "mr-4")}>
         <div className={styles.priceContainer + " mr-10"}>
           <span className={styles.priceValue + " text text_type_digits-medium"}>
@@ -43,17 +41,28 @@ function BurgerConstructor() {
 
         <Button
           htmlType="button"
-          type="primary"
+          type= "primary"
           size="large"
+          disabled={!chosenBun || chosenStuffings.length === 0}
           onClick={handleOrderClick}
         >
           Оформить заказ
+          <ClipLoader
+        color= "white"
+        loading={false}
+        size={50}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+        
         </Button>
+
+       
       </div>
 
       {orderPopupIsOpen && (
-        <Modal popupCloseButtonHandler={setOrderPopupOpen}>
-          <OrderDetails checkOutData={checkOutData} />
+        <Modal popupClosed={checkoutPopupClosed}>
+          <OrderDetails checkOutData={"checkOutData"} />
         </Modal>
       )}
     </div>
