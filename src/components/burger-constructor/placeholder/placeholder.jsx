@@ -1,6 +1,7 @@
 import styles from "./placeholder.module.css";
 import cn from "classnames";
 
+
 function Placeholder({ text }) {
   return (
     <div className={styles.container}>
@@ -10,3 +11,5 @@ function Placeholder({ text }) {
 }
 
 export default Placeholder;
+
+

@@ -7,10 +7,11 @@ import styles from "./burger-ingredients.module.css";
 import IngredientsGroup from "./ingredients-group/ingredients-group";
 import Modal from "../modal/modal.jsx";
 import IngredientDetails from "./ingredient-details/ingredient-details";
+import Placeholder from "./placeholder/placeholder";
+
 import { INGREDIENTS_TYPES } from "../../utils/constants";
 
 import { ingredientsPopupClosed } from "../../services/popup-ingredient-details-slice";
-
 
 import { useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
@@ -34,6 +35,7 @@ function BurgerIngredients() {
   };
 
   const popupOpened = useSelector((state) => state.ingredientsPopup.opened);
+  const fetchStatus = useSelector((state) => state.burgerIngredients.status);
 
   return (
     <div className={styles.section}>
@@ -66,9 +68,15 @@ function BurgerIngredients() {
       </div>
 
       <div className={styles.menuSection}>
-        <IngredientsGroup name="Булки" type="bun" ref={bunsRef} />
-        <IngredientsGroup name="Соусы" type="sauce" ref={saucesRef} />
-        <IngredientsGroup name="Главное" type="main" ref={mainRef}  />
+        {fetchStatus === "loading" ? (
+          <Placeholder />
+        ) : (
+          <>
+            <IngredientsGroup name="Булки" type="bun" ref={bunsRef} />
+            <IngredientsGroup name="Соусы" type="sauce" ref={saucesRef} />
+            <IngredientsGroup name="Главное" type="main" ref={mainRef} />
+          </>
+        )}
       </div>
       {popupOpened && (
         <Modal popupClosed={ingredientsPopupClosed} title="Детали ингредиентов">

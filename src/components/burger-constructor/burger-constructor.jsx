@@ -11,26 +11,30 @@ import styles from "./burger-constructor.module.css";
 import OrderDetails from "./order-details/order-details";
 import IngredientsList from "./ingredients-list/ingredients-list";
 import { useDispatch } from "react-redux";
-import { checkoutPopupOpened, checkoutPopupClosed} from "../../services/popup-checkout-details-slice";
+import {
+  checkoutPopupOpened,
+  checkoutPopupClosed,
+} from "../../services/popup-checkout-details-slice";
 import { postData } from "../../services/order-slice";
-
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
-  const totalPrice = useSelector(state => state.order.totalPrice)
-  const orderData = useSelector(state => state.order.orderList)
-  const orderPopupIsOpen = useSelector(state => state.checkoutPopup.opened)
-  const chosenBun = useSelector(state => state.burgerConstructor.bun)
-  const chosenStuffings = useSelector(state => state.burgerConstructor.stuffings)
+  const totalPrice = useSelector((state) => state.order.totalPrice);
+  const orderData = useSelector((state) => state.order.orderList);
+  const orderPopupIsOpen = useSelector((state) => state.checkoutPopup.opened);
+  const chosenBun = useSelector((state) => state.burgerConstructor.bun);
+  const chosenStuffings = useSelector(
+    (state) => state.burgerConstructor.stuffings
+  );
 
   const handleOrderClick = () => {
-    dispatch(postData(orderData))
-    dispatch(checkoutPopupOpened())
+    dispatch(postData(orderData));
+    dispatch(checkoutPopupOpened());
   };
 
   return (
     <div className={styles.section}>
-      <IngredientsList/>
+      <IngredientsList />
       <div className={cn(styles.orderInfo, "mt-10", "mr-4")}>
         <div className={styles.priceContainer + " mr-10"}>
           <span className={styles.priceValue + " text text_type_digits-medium"}>
@@ -41,23 +45,13 @@ function BurgerConstructor() {
 
         <Button
           htmlType="button"
-          type= "primary"
+          type="primary"
           size="large"
           disabled={!chosenBun || chosenStuffings.length === 0}
           onClick={handleOrderClick}
         >
           Оформить заказ
-          <ClipLoader
-        color= "white"
-        loading={false}
-        size={50}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
-        
         </Button>
-
-       
       </div>
 
       {orderPopupIsOpen && (
