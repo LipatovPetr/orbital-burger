@@ -1,7 +1,6 @@
 import cn from "classnames";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import ClipLoader from "react-spinners/ClipLoader";
 import {
   CurrencyIcon,
   Button,

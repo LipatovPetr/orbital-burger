@@ -1,5 +1,5 @@
 import {useRef} from 'react';
-import styles from "./stuffing-element.module.css";
+import styles from "./stuffing-card.module.css";
 import PropTypes from "prop-types";
 import cn from "classnames";
 
@@ -12,8 +12,7 @@ import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { ingredientMoved } from "../../../services/burger-constructor-slice";
 
-function StuffingElement({ ingredient }) {
-
+function StuffingElement({ ingredient, index }) {
   const ref = useRef(null);
   const dispatch = useDispatch();
   const uuid = ingredient.uuid;
@@ -29,9 +28,9 @@ function StuffingElement({ ingredient }) {
       if (!ref.current) {
         return;
       }
-      const dragUUID = item.uuid;
-      const hoverUUID = uuid;
-      if (dragUUID === hoverUUID) {
+      const dragIndex = item.index;
+      const hoverIndex = index;
+      if (dragIndex === hoverIndex) {
         return;
       }
 
@@ -41,31 +40,34 @@ function StuffingElement({ ingredient }) {
       const clientOffset = monitor.getClientOffset();
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
-      if (dragUUID < hoverUUID && hoverClientY < hoverMiddleY) {
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
-      if (dragUUID > hoverUUID && hoverClientY > hoverMiddleY) {
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
-      dispatch(ingredientMoved({ fromUUID: dragUUID, toUUID: hoverUUID }));
+      dispatch(ingredientMoved({ fromIndex: dragIndex, toIndex: hoverIndex }));
+
+      item.index = hoverIndex
     },
   });
 
   const [{ isDragging }, drag] = useDrag({
     type: "stuffing",
     item: () => {
-      return { uuid };
+      return { uuid, index };
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   });
-
+  const opacity = isDragging ? 0 : 1
   drag(drop(ref));
 
   return (
     <div
-      className={cn(styles.ingredientContainer, "pl-4", "pr-4", isDragging ? styles.invisible : '')}
+      className={cn(styles.ingredientContainer, "pl-4", "pr-4")}
+      style={{ opacity }} 
       key={ingredient._id}
       ref={ref}
       data-handler-id={handlerId}

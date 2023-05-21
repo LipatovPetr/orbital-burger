@@ -1,6 +1,6 @@
 import cn from "classnames";
 import PropTypes from "prop-types";
-import styles from "./card.module.css";
+import styles from "./ingredient-card.module.css";
 import { useDrag } from "react-dnd";
 import {
   CurrencyIcon,

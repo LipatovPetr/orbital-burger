@@ -12,7 +12,7 @@ import {
 
 import Placeholder from "../placeholder/placeholder";
 import BunElement from "../bun-element/bun-element";
-import StuffingElement from "../stuffing-element/stuffing-element";
+import StuffingElement from "../stuffing-card/stuffing-card";
 
 function IngredientsList() {
   const dispatch = useDispatch();
@@ -67,11 +67,11 @@ function IngredientsList() {
 
       <div className={styles.scrolledSection}>
         {chosenStuffings.length > 0 ? (
-          chosenStuffings.map((ingredient, index) => (
-            <StuffingElement
+          chosenStuffings.map((ingredient, i) => 
+            (<StuffingElement
               ingredient={ingredient}
-              index={index}
               key={ingredient.uuid}
+              index={i}
             />
           ))
         ) : (

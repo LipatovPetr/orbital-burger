@@ -18,12 +18,7 @@ const constructorSlice = createSlice({
       }
     },
     ingredientMoved(state, action) {
-      const { fromUUID, toUUID } = action.payload;
-      const fromIndex = state.stuffings.findIndex(
-        (item) => item.uuid === fromUUID
-      );
-      const toIndex = state.stuffings.findIndex((item) => item.uuid === toUUID);
-
+      const { fromIndex, toIndex } = action.payload;
       const updatedStuffings = [...state.stuffings];
       const [movedItem] = updatedStuffings.splice(fromIndex, 1);
       updatedStuffings.splice(toIndex, 0, movedItem);
