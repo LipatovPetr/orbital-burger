@@ -13,13 +13,18 @@ import { ingredientsPopupOpened } from "../../../services/popup-ingredient-detai
 
 function Card({ item: { _id, image, name, price } }) {
   const dispatch = useDispatch();
-  const [, dragRef] = useDrag({
+  const [{didDrop}, dragRef] = useDrag({
     type: "ingredient",
     item: { _id },
+    collect: monitor => ({
+      didDrop: !!monitor.didDrop(),
+    }),
   });
 
 const availableIngredients = useSelector((state) => state.burgerIngredients.data);
-
+const chosenStuffings = useSelector((state) => state.burgerConstructor.stuffings);
+const chosenBun = useSelector((state) => state.burgerConstructor.bun);
+const count = chosenStuffings.filter((item) => item._id === _id).length;
 
   const handleIngredientClick = (evt) => {
     const ingredientId = evt.currentTarget.dataset.id;
@@ -55,7 +60,7 @@ const availableIngredients = useSelector((state) => state.burgerIngredients.data
       >
         {name}
       </p>
-      <Counter count={0} size="default" extraClass="m-1" />
+      <Counter count={chosenBun?._id === _id ? count + 2 : count} size="default" extraClass="m-1" />
     </div>
   );
 }

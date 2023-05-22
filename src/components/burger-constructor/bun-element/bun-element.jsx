@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import cn from "classnames";
 import {
     ConstructorElement,
-    DragIcon,
   } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function BunElement({ item, type }) {

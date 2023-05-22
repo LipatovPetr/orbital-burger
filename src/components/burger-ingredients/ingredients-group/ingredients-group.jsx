@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import cn from "classnames";
 import styles from "./ingredients-group.module.css";
-import Card from "../card/ingredient-card";
+import Card from "../ingredient-card/ingredient-card";
 import { useSelector } from 'react-redux'
 import React from "react";
 
