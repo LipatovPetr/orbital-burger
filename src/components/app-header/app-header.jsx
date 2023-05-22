@@ -16,13 +16,13 @@ function AppHeader() {
             <a className={cn(styles.button, "pl-5", "pr-5", "mb-4", "mt-4")}>
               <BurgerIcon type="secondary" />
               <span className="text text_type_main-default ml-2">
-                Конструктор
+                Constructor
               </span>
             </a>
             <a className={cn(styles.button, "pl-5", "pr-5", "mb-4", "mt-4")}>
               <ListIcon type="secondary" />
               <span className={cn("text", "text_type_main-default", "text_color_inactive", "ml-2")}>
-                Лента заказов
+                Orders
               </span>
             </a>
           </div>
@@ -35,7 +35,7 @@ function AppHeader() {
             <a className={styles.button + " pl-5 pr-5 mb-4 mt-4"}>
               <ProfileIcon type="secondary" />
               <span className="text text_type_main-default text_color_inactive ml-2">
-                Личный кабинет
+                Profile
               </span>
             </a>
           </div>

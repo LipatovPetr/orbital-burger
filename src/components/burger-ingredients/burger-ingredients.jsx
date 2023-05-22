@@ -40,7 +40,7 @@ function BurgerIngredients() {
   return (
     <div className={styles.section}>
       <h1 className={cn(styles.heading, "text", "text_type_main-large")}>
-        Соберите бургер
+        Build a burger
       </h1>
 
       <div className={cn(styles.tab, "mt-5")}>
@@ -72,9 +72,9 @@ function BurgerIngredients() {
           <Placeholder />
         ) : (
           <>
-            <IngredientsGroup name="Булки" type="bun" ref={bunsRef} />
-            <IngredientsGroup name="Соусы" type="sauce" ref={saucesRef} />
-            <IngredientsGroup name="Главное" type="main" ref={mainRef} />
+            <IngredientsGroup name="Buns" type="bun" ref={bunsRef} />
+            <IngredientsGroup name="Sauces" type="sauce" ref={saucesRef} />
+            <IngredientsGroup name="Main" type="main" ref={mainRef} />
           </>
         )}
       </div>

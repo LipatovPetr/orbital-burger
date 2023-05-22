@@ -62,7 +62,7 @@ function IngredientsList() {
       {chosenBun ? (
         <BunElement item={chosenBun} type={"top"} />
       ) : (
-        <Placeholder text={"булочку"} />
+        <Placeholder text={"your bun"} />
       )}
 
       <div className={styles.scrolledSection}>
@@ -75,13 +75,13 @@ function IngredientsList() {
             />
           ))
         ) : (
-          <Placeholder text={"начинку и соусы"} />
+          <Placeholder text={"main and sauces"} />
         )}
       </div>
       {chosenBun ? (
         <BunElement item={chosenBun} type={"bottom"} />
       ) : (
-        <Placeholder text={"булочку"} />
+        <Placeholder text={"your bun"} />
       )}
     </div>
   );
