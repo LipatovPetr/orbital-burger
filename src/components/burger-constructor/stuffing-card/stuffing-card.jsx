@@ -10,7 +10,7 @@ import {
 
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
-import { ingredientMoved } from "../../../services/burger-constructor-slice";
+import { ingredientMoved, removeItem } from "../../../services/burger-constructor-slice";
 
 function StuffingCard({ ingredient, index }) {
   const ref = useRef(null);
@@ -64,6 +64,11 @@ function StuffingCard({ ingredient, index }) {
   const opacity = isDragging ? 0 : 1
   drag(drop(ref));
 
+  const handleRemoveItemClick = () => {
+    dispatch(removeItem(index));
+  };
+
+
   return (
     <div
       className={cn(styles.ingredientContainer, "pl-4", "pr-4")}
@@ -74,7 +79,7 @@ function StuffingCard({ ingredient, index }) {
     >
       <DragIcon type="primary" />
       <ConstructorElement
-
+        handleClose={handleRemoveItemClick}
         text={ingredient.name}
         price={ingredient.price}
         thumbnail={ingredient.image}

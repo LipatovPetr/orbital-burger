@@ -17,6 +17,12 @@ const constructorSlice = createSlice({
         state.stuffings.push({ ...action.payload, uuid: uuidv4() });
       }
     },
+    removeItem(state, action) {
+      console.log(action)
+      state.stuffings.splice(action.payload, 1)
+    },
+
+
     ingredientMoved(state, action) {
       const { fromIndex, toIndex } = action.payload;
       const updatedStuffings = [...state.stuffings];
@@ -29,4 +35,4 @@ const constructorSlice = createSlice({
 });
 
 export default constructorSlice.reducer;
-export const { addItem, ingredientMoved } = constructorSlice.actions;
+export const { addItem, removeItem, ingredientMoved } = constructorSlice.actions;
