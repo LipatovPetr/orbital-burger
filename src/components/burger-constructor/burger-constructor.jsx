@@ -49,7 +49,7 @@ function BurgerConstructor() {
           disabled={!chosenBun || chosenStuffings.length === 0}
           onClick={handleOrderClick}
         >
-          Оформить заказ
+          Order
         </Button>
       </div>
 
