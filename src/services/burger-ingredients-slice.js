@@ -7,11 +7,19 @@ const initialState = {
 };
 
 export const fetchData = createAsyncThunk("ingredients/fetchData", async () => {
-  const response = await fetch(
-    "https://norma.nomoreparties.space/api/ingredients"
-  );
-  const data = await response.json();
-  return data.data;
+  try {
+    const response = await fetch("https://norma.nomoreparties.space/api/ingredients");
+    
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error; 
+  }
 });
 
 const ingredientsSlice = createSlice({

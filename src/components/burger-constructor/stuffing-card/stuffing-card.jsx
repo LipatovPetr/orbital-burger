@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { ingredientMoved } from "../../../services/burger-constructor-slice";
 
-function StuffingElement({ ingredient, index }) {
+function StuffingCard({ ingredient, index }) {
   const ref = useRef(null);
   const dispatch = useDispatch();
   const uuid = ingredient.uuid;
@@ -83,4 +83,4 @@ function StuffingElement({ ingredient, index }) {
   );
 }
 
-export default StuffingElement;
+export default StuffingCard;

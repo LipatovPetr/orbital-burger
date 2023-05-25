@@ -9,10 +9,9 @@ import {
   totalPriceUpdated,
   orderListUpdated,
 } from "../../../services/order-slice";
-
 import Placeholder from "../placeholder/placeholder";
 import BunElement from "../bun-element/bun-element";
-import StuffingElement from "../stuffing-card/stuffing-card";
+import StuffingCard from "../stuffing-card/stuffing-card";
 
 function IngredientsList() {
   const dispatch = useDispatch();
@@ -68,7 +67,7 @@ function IngredientsList() {
       <div className={styles.scrolledSection}>
         {chosenStuffings.length > 0 ? (
           chosenStuffings.map((ingredient, i) => 
-            (<StuffingElement
+            (<StuffingCard
               ingredient={ingredient}
               key={ingredient.uuid}
               index={i}

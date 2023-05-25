@@ -13,12 +13,9 @@ import { ingredientsPopupOpened } from "../../../services/popup-ingredient-detai
 
 function Card({ item: { _id, image, name, price } }) {
   const dispatch = useDispatch();
-  const [{didDrop}, dragRef] = useDrag({
+  const [, dragRef] = useDrag({
     type: "ingredient",
     item: { _id },
-    collect: monitor => ({
-      didDrop: !!monitor.didDrop(),
-    }),
   });
 
 const availableIngredients = useSelector((state) => state.burgerIngredients.data);
