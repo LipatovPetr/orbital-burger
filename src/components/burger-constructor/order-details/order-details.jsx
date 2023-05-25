@@ -25,7 +25,7 @@ function OrderDetails() {
         )}
       </span>
       <p className={cn("pt-8", "pb-15", "text", "text_type_main-medium")}>
-        идентификатор заказа
+        order id
       </p>
       <div className="pb-15">
         {orderStatus === "loading" ? (
@@ -42,7 +42,7 @@ function OrderDetails() {
       </div>
 
       <p className={cn("text", "text_type_main-default", "pb-2")}>
-        Ваш заказ начали готовить
+        We have started preparing your order
       </p>
       <p
         className={cn(
@@ -52,7 +52,7 @@ function OrderDetails() {
           "pb-15"
         )}
       >
-        Дождитесь готовности на орбитальной станции
+        Wait until your order is ready
       </p>
     </div>
   );
