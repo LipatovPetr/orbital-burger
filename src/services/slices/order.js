@@ -11,8 +11,14 @@ const initialState = {
 
 export const postData = createAsyncThunk("order/postData", async (data) => {
   try {
-    console.log(data);
-    const res = await postRequest("/orders", { ingredients: data });
+    const res = await postRequest("/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: localStorage.getItem("accessToken"),
+      },
+      body: JSON.stringify({ ingredients: data }),
+    });
     return await handleResponse(res);
   } catch (err) {
     throw err;
