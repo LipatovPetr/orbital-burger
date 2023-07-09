@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import cn from "classnames";
 import styles from "./modal.module.css";
+import { useNavigate } from "react-router-dom";
+
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { createPortal } from "react-dom";
 import { useEffect } from "react";
@@ -9,13 +11,12 @@ import ModalOverlay from "../modal-overlay/modal-overlay.jsx";
 
 function Modal({ children, title, popupClosed }) {
   const rootForModal = document.getElementById("modal");
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     const handleEscape = (evt) => {
       if (evt.key === "Escape") {
-        dispatch(popupClosed());
+        popupClosed();
       }
     };
     document.addEventListener("keydown", handleEscape);
@@ -25,7 +26,7 @@ function Modal({ children, title, popupClosed }) {
   });
 
   const handleCloseButton = () => {
-    dispatch(popupClosed());
+    popupClosed();
   };
 
   return createPortal(
