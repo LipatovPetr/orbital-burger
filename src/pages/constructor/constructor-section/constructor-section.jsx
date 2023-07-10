@@ -57,7 +57,7 @@ function ConstructorSection() {
           disabled={!chosenBun || chosenStuffings.length === 0}
           onClick={handleOrderClick}
         >
-          Order
+          Оформить заказ
         </Button>
       </div>
 

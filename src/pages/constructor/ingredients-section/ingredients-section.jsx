@@ -34,7 +34,7 @@ const IngredientsSection = memo(() => {
   return (
     <div className={styles.section}>
       <h1 className={cn(styles.heading, "text", "text_type_main-large")}>
-        Build a burger
+        Соберите бургер
       </h1>
 
       <div className={cn(styles.tab, "mt-5")}>
@@ -66,9 +66,9 @@ const IngredientsSection = memo(() => {
           <Placeholder />
         ) : (
           <>
-            <IngredientsGroup name="Buns" type="bun" ref={bunsRef} />
-            <IngredientsGroup name="Sauces" type="sauce" ref={saucesRef} />
-            <IngredientsGroup name="Main" type="main" ref={mainRef} />
+            <IngredientsGroup name="Булки" type="bun" ref={bunsRef} />
+            <IngredientsGroup name="Соусы" type="sauce" ref={saucesRef} />
+            <IngredientsGroup name="Основное" type="main" ref={mainRef} />
           </>
         )}
       </div>

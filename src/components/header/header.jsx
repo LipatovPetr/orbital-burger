@@ -11,7 +11,6 @@ import styles from "./header.module.css";
 
 function Header() {
   const location = useLocation();
-
   return (
     <header className={styles.navContainer}>
       <nav className={styles.navElement}>
@@ -26,7 +25,7 @@ function Header() {
               <BurgerIcon
                 type={location.pathname === "/" ? "primary" : "secondary"}
               />
-              <span className={cn("ml-2")}>Constructor</span>
+              <span className={cn("ml-2")}>Конструктор</span>
             </NavLink>
             <NavLink
               to="orders"
@@ -37,7 +36,7 @@ function Header() {
               <ListIcon
                 type={location.pathname === "/orders" ? "primary" : "secondary"}
               />
-              <span className={cn("ml-2")}>Orders</span>
+              <span className={cn("ml-2")}>Лента заказов</span>
             </NavLink>
           </div>
 
@@ -57,7 +56,7 @@ function Header() {
                   location.pathname === "/profile" ? "primary" : "secondary"
                 }
               />
-              <span className={cn("ml-2")}>Profile</span>
+              <span className={cn("ml-2")}>Личный кабинет</span>
             </NavLink>
           </div>
         </div>

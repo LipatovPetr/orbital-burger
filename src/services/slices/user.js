@@ -30,7 +30,13 @@ export const register = createAsyncThunk("user/register", async (data) => {
 
 export const login = createAsyncThunk("user/login", async (data) => {
   try {
-    const res = await postRequest("/auth/login", data);
+    const res = await postRequest("/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
     const jsonData = await handleResponse(res);
     localStorage.setItem("accessToken", jsonData.accessToken);
     localStorage.setItem("refreshToken", jsonData.refreshToken);
@@ -43,7 +49,11 @@ export const login = createAsyncThunk("user/login", async (data) => {
 export const logout = createAsyncThunk("user/logout", async () => {
   try {
     const res = await postRequest("/auth/logout", {
-      token: localStorage.getItem("refreshToken"),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
     });
     const jsonData = await handleResponse(res);
     localStorage.removeItem("accessToken");

@@ -56,7 +56,7 @@ function Profile() {
         type={"text"}
         value={formData.name}
         name={"name"}
-        placeholder={"Name"}
+        placeholder={"Имя"}
         icon="EditIcon"
         onChange={handleChange}
         minLength="2"
