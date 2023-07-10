@@ -1,4 +1,5 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import cn from "classnames";
 import {
   Logo,
@@ -9,6 +10,8 @@ import {
 import styles from "./header.module.css";
 
 function Header() {
+  const location = useLocation();
+
   return (
     <header className={styles.navContainer}>
       <nav className={styles.navElement}>
@@ -20,7 +23,9 @@ function Header() {
                 isActive ? styles.link_active : styles.link_inactive
               }
             >
-              <BurgerIcon type="secondary" />
+              <BurgerIcon
+                type={location.pathname === "/" ? "primary" : "secondary"}
+              />
               <span className={cn("ml-2")}>Constructor</span>
             </NavLink>
             <NavLink
@@ -29,7 +34,9 @@ function Header() {
                 isActive ? styles.link_active : styles.link_inactive
               }
             >
-              <ListIcon type="secondary" />
+              <ListIcon
+                type={location.pathname === "/orders" ? "primary" : "secondary"}
+              />
               <span className={cn("ml-2")}>Orders</span>
             </NavLink>
           </div>
@@ -45,7 +52,11 @@ function Header() {
                 isActive ? styles.link_active : styles.link_inactive
               }
             >
-              <ProfileIcon type="secondary" />
+              <ProfileIcon
+                type={
+                  location.pathname === "/profile" ? "primary" : "secondary"
+                }
+              />
               <span className={cn("ml-2")}>Profile</span>
             </NavLink>
           </div>

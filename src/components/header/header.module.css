@@ -45,7 +45,8 @@
 }
 
 .link_active {
-  composes: pl-5 pr-5 mb-4 mt-4 text text_type_main-default text_color_active from global;
+  composes: pl-5 pr-5 mb-4 mt-4 text text_type_main-default from global;
+  color: #ffff;
   text-decoration: none;
   display: flex;
   align-items: center;

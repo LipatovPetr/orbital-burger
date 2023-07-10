@@ -20,7 +20,8 @@
 }
 
 .link_active {
-  composes: text text_type_main-medium text_color_active from global;
+  composes: text text_type_main-medium from global;
+  color: #ffff;
   margin-top: 15px;
   margin-bottom: 15px;
   text-decoration: none;
