@@ -47,11 +47,11 @@ const orderSlice = createSlice({
       }
     },
     orderListUpdated(state, action) {
-      const bunsIds = [action.payload.bun._id, action.payload.bun._id];
+      const bunsId = action.payload.bun._id;
       const stuffingsIds = action.payload.stuff.map(
         (ingredient) => ingredient._id
       );
-      state.orderList = stuffingsIds.concat(bunsIds);
+      state.orderList = [bunsId, ...stuffingsIds, bunsId];
     },
   },
   extraReducers(builder) {
