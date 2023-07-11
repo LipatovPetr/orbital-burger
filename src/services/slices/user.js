@@ -12,6 +12,7 @@ const initialState = {
   registerStatus: "idle",
   editStatus: "idle",
   logoutStatus: "idle",
+  authorizeStatus: "idle",
   error: null,
   isAuthChecked: false,
 };
@@ -77,7 +78,7 @@ export const editUser = createAsyncThunk("user/edit", async (data) => {
   }
 });
 
-export const checkAuth = createAsyncThunk("user/checkAuth", async (token) => {
+export const authorizeUser = createAsyncThunk("user/auth", async (token) => {
   try {
     const res = await fetchWithRefresh("/auth/user", {
       method: "GET",
@@ -112,6 +113,9 @@ const userSlice = createSlice({
   reducers: {
     clearError(state) {
       state.error = null;
+    },
+    authChecked(state) {
+      state.isAuthChecked = true;
     },
   },
   extraReducers(builder) {
@@ -154,15 +158,16 @@ const userSlice = createSlice({
         state.error = action.error.message;
       })
       // checkAuth action handlers
-      .addCase(checkAuth.pending, (state) => {
-        state.isAuthChecked = "loading";
+      .addCase(authorizeUser.pending, (state) => {
+        state.authorizeStatus = "loading";
       })
-      .addCase(checkAuth.fulfilled, (state, action) => {
-        state.isAuthChecked = "true";
+      .addCase(authorizeUser.fulfilled, (state, action) => {
+        state.authorizeStatus = "succeeded";
         state.user = { ...action.payload.user };
+        state.isAuthChecked = true;
       })
-      .addCase(checkAuth.rejected, (state, action) => {
-        state.isAuthChecked = "true";
+      .addCase(authorizeUser.rejected, (state, action) => {
+        state.authorizeStatus = "failed";
         state.error = action.error.message;
       })
       // logout action handlers
@@ -181,4 +186,4 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const { clearError } = userSlice.actions;
+export const { clearError, authChecked } = userSlice.actions;

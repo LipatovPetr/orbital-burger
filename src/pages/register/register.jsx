@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { register, clearError } from "../../services/slices/user";
+import Preloader from "../../components/preloader/preloader";
 import toast from "react-hot-toast";
 import cn from "classnames";
 
@@ -25,6 +26,8 @@ function Register() {
   const dispatch = useDispatch();
   const errorMessage = useSelector((state) => state.user.error);
   const registerStatus = useSelector((state) => state.user.registerStatus);
+  const isAuthChecked = useSelector((state) => state.user.isAuthChecked);
+  const user = useSelector((state) => state.user.user);
 
   if (errorMessage) {
     setTimeout(() => {
@@ -45,54 +48,58 @@ function Register() {
     dispatch(register(registerFormData));
   }
 
-  return (
-    <div className={styles.section}>
-      <div className={styles.container}>
-        <h2 className={styles.heading}>Регистрация</h2>
-        <form
-          onSubmit={handleSubmit}
-          className={cn(styles.inputsContainer, "mt-6")}
-        >
-          <Input
-            name="name"
-            value={registerFormData.name}
-            type={"text"}
-            placeholder={"Имя"}
-            onChange={handleChange}
-            required
-          />
-          <EmailInput
-            name="email"
-            value={registerFormData.email}
-            inputMode="email"
-            onChange={handleChange}
-            required
-          />
-          <PasswordInput
-            name="password"
-            value={registerFormData.password}
-            inputMode="text"
-            onChange={handleChange}
-            required
-          />
-          {errorMessage ? (
-            <p className={styles.error}>{`Error: ${errorMessage}`}</p>
-          ) : null}
-          <Button htmlType="submit" type="primary" size="medium">
-            Зарегистрироваться
-          </Button>
-        </form>
-        <div className={cn(styles.linksContainer, "mt-20")}>
-          <p className="text text_type_main-default text_color_inactive">
-            Уже зарегистрированы?{" "}
-            <Link to="../login" className={styles.link}>
-              Войти
-            </Link>
-          </p>
+  if (isAuthChecked && !user) {
+    return (
+      <div className={styles.section}>
+        <div className={styles.container}>
+          <h2 className={styles.heading}>Регистрация</h2>
+          <form
+            onSubmit={handleSubmit}
+            className={cn(styles.inputsContainer, "mt-6")}
+          >
+            <Input
+              name="name"
+              value={registerFormData.name}
+              type={"text"}
+              placeholder={"Имя"}
+              onChange={handleChange}
+              required
+            />
+            <EmailInput
+              name="email"
+              value={registerFormData.email}
+              inputMode="email"
+              onChange={handleChange}
+              required
+            />
+            <PasswordInput
+              name="password"
+              value={registerFormData.password}
+              inputMode="text"
+              onChange={handleChange}
+              required
+            />
+            {errorMessage ? (
+              <p className={styles.error}>{`Error: ${errorMessage}`}</p>
+            ) : null}
+            <Button htmlType="submit" type="primary" size="medium">
+              Зарегистрироваться
+            </Button>
+          </form>
+          <div className={cn(styles.linksContainer, "mt-20")}>
+            <p className="text text_type_main-default text_color_inactive">
+              Уже зарегистрированы?{" "}
+              <Link to="../login" className={styles.link}>
+                Войти
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return <Preloader />;
+  }
 }
 
 export default Register;

@@ -13,6 +13,7 @@ import Layout from "../layout/layout.jsx";
 import ProfileLayout from "../profile-layout/profile-layout";
 import Modal from "../modal/modal";
 import IngredientDetails from "../../pages/constructor/ingredients-section/ingredient-details/ingredient-details";
+import Preloader from "../preloader/preloader";
 
 // Pages
 
@@ -38,7 +39,7 @@ import checkoutReducer from "../../services/slices/popup-checkout-details";
 // Functions
 
 import { fetchIngredients } from "../../services/slices/burger-ingredients";
-import { checkAuth } from "../../services/slices/user";
+import { authorizeUser, authChecked } from "../../services/slices/user";
 
 const store = configureStore({
   reducer: {
@@ -63,9 +64,11 @@ const App = memo(() => {
 
   useEffect(() => {
     if (accessToken) {
-      store.dispatch(checkAuth(accessToken));
+      store.dispatch(authorizeUser(accessToken));
+    } else {
+      store.dispatch(authChecked());
     }
-  }, [accessToken]);
+  }, []);
 
   return (
     <Provider store={store}>
@@ -73,6 +76,8 @@ const App = memo(() => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Constructor />} />
           <Route path="login" element={<OnlyUnAuth component={<Login />} />} />
+          <Route path="test" element={<Preloader />} />
+
           <Route
             path="register"
             element={<OnlyUnAuth component={<Register />} />}
