@@ -23,7 +23,7 @@ function Modal({ children, title, popupClosed }) {
     return () => {
       document.removeEventListener("keydown", handleEscape);
     };
-  });
+  }, []);
 
   const handleCloseButton = () => {
     popupClosed();
