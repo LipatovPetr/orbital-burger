@@ -1,7 +1,7 @@
 import styles from "./login.module.css";
 import cn from "classnames";
 import { Link } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, clearError } from "../../services/slices/user";
 
@@ -20,11 +20,14 @@ function Login() {
   const formElement = useRef();
   const errorMessage = useSelector((state) => state.user.error);
 
-  if (errorMessage) {
-    setTimeout(() => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
       dispatch(clearError());
+      return () => {
+        clearTimeout(timer);
+      };
     }, "3000");
-  }
+  }, [errorMessage]);
 
   function handleChange(event) {
     const { name, value } = event.target;

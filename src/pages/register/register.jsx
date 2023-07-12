@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { register, clearError } from "../../services/slices/user";
@@ -26,11 +26,14 @@ function Register() {
   const errorMessage = useSelector((state) => state.user.error);
   const registerStatus = useSelector((state) => state.user.registerStatus);
 
-  if (errorMessage) {
-    setTimeout(() => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
       dispatch(clearError());
+      return () => {
+        clearTimeout(timer);
+      };
     }, "3000");
-  }
+  }, [errorMessage]);
 
   function handleChange(event) {
     const { name, value } = event.target;
