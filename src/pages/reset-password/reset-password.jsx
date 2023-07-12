@@ -29,7 +29,13 @@ function ResetPassword() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    return postRequest("password-reset/reset", resetPassFormData)
+    return postRequest("/password-reset/reset", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(resetPassFormData),
+    })
       .then((res) => {
         return handleResponse(res);
       })

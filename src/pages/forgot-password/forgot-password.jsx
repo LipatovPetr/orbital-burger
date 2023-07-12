@@ -1,6 +1,5 @@
 import styles from "./forgot-password.module.css";
 import cn from "classnames";
-import Preloader from "../../components/preloader/preloader";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,8 +18,6 @@ function ForgotPassword() {
 
   const navigate = useNavigate();
   const errorMessage = useSelector((state) => state.user.error);
-  const isAuthChecked = useSelector((state) => state.user.isAuthChecked);
-  const user = useSelector((state) => state.user.user);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -32,7 +29,13 @@ function ForgotPassword() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    return postRequest("password-reset", forgotPassFormData)
+    return postRequest("/password-reset", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(forgotPassFormData),
+    })
       .then((res) => {
         handleResponse(res);
       })
@@ -43,44 +46,40 @@ function ForgotPassword() {
       });
   }
 
-  if (isAuthChecked && !user) {
-    return (
-      <div className={styles.section}>
-        <div className={styles.container}>
-          <h2 className={styles.heading}>Восстановление пароля</h2>
-          <form
-            onSubmit={handleSubmit}
-            className={cn(styles.inputsContainer, "mt-6")}
-          >
-            <EmailInput
-              onChange={handleChange}
-              value={forgotPassFormData.email}
-              name="email"
-              inputMode="email"
-              required
-            />
-            {errorMessage ? (
-              <p className={styles.error}>{`Error: ${errorMessage}`}</p>
-            ) : null}
-            <Button htmlType="submit" type="primary" size="medium">
-              Восстановить
-            </Button>
-          </form>
+  return (
+    <div className={styles.section}>
+      <div className={styles.container}>
+        <h2 className={styles.heading}>Восстановление пароля</h2>
+        <form
+          onSubmit={handleSubmit}
+          className={cn(styles.inputsContainer, "mt-6")}
+        >
+          <EmailInput
+            onChange={handleChange}
+            value={forgotPassFormData.email}
+            name="email"
+            inputMode="email"
+            required
+          />
+          {errorMessage ? (
+            <p className={styles.error}>{`Error: ${errorMessage}`}</p>
+          ) : null}
+          <Button htmlType="submit" type="primary" size="medium">
+            Восстановить
+          </Button>
+        </form>
 
-          <div className={cn(styles.linksContainer, "mt-20")}>
-            <p className="text text_type_main-default text_color_inactive">
-              Вспомнили пароль?{" "}
-              <Link to="../login" className={styles.link}>
-                Войти
-              </Link>
-            </p>
-          </div>
+        <div className={cn(styles.linksContainer, "mt-20")}>
+          <p className="text text_type_main-default text_color_inactive">
+            Вспомнили пароль?{" "}
+            <Link to="../login" className={styles.link}>
+              Войти
+            </Link>
+          </p>
         </div>
       </div>
-    );
-  } else {
-    return <Preloader />;
-  }
+    </div>
+  );
 }
 
 export default ForgotPassword;

@@ -95,18 +95,6 @@ export const authorizeUser = createAsyncThunk("user/auth", async (token) => {
   }
 });
 
-export const resetRequest = createAsyncThunk(
-  "user/resetRequest",
-  async (data) => {
-    try {
-      const res = await postRequest("/password-reset", data);
-      return await handleResponse(res);
-    } catch (error) {
-      throw error;
-    }
-  }
-);
-
 const userSlice = createSlice({
   name: "user",
   initialState,
