@@ -1,5 +1,7 @@
 .section {
   display: flex;
+  position: relative;
+  overflow: hidden;
 }
 
 .navigationContainer {
@@ -17,6 +19,10 @@
   padding-top: 15px;
   padding-bottom: 15px;
   text-decoration: none;
+}
+
+.link_inactive:hover {
+  color: #ffff;
 }
 
 .link_active {

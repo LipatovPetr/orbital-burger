@@ -21,7 +21,6 @@ function Register() {
     name: "",
   });
 
-  // const notify = (text) => toast(text);
   const dispatch = useDispatch();
   const errorMessage = useSelector((state) => state.user.error);
   const registerStatus = useSelector((state) => state.user.registerStatus);

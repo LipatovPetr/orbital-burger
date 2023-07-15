@@ -11,21 +11,18 @@ function OrderDetails() {
 
   return (
     <div className={styles.box}>
-      <span className={cn("text", "text_type_digits-large", "pt-10")}>
-        {orderStatus === "loading" ? (
-          <MoonLoader
-            color="white"
-            loading={true}
-            size={50}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
-        ) : (
-          orderNum
+      <span
+        className={cn(
+          "text",
+          "text_type_digits-large",
+          "pt-10",
+          styles.orderNumber
         )}
+      >
+        {orderStatus === "loading" ? null : orderNum}
       </span>
       <p className={cn("pt-8", "pb-15", "text", "text_type_main-medium")}>
-        идентификатор заказа
+        Идентификатор заказа
       </p>
       <div className="pb-15">
         {orderStatus === "loading" ? (

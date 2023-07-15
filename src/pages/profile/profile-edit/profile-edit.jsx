@@ -39,6 +39,10 @@ function Profile() {
   function handleSubmit(event) {
     event.preventDefault();
     dispatch(editUser(formData));
+    setRegisterFormData({
+      ...formData,
+      password: "",
+    });
   }
 
   function handleReset(event) {

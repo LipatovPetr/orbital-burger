@@ -5,3 +5,9 @@ export const INGREDIENTS_TYPES = {
   sauces: "Соусы",
   main: "Основное",
 };
+
+export const websoketStatus = {
+  CONNECTING: "CONNECTING...",
+  ONLINE: "ONLINE",
+  OFFLINE: "OFFLINE",
+};

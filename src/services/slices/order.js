@@ -11,6 +11,7 @@ const initialState = {
 
 export const postData = createAsyncThunk("order/postData", async (data) => {
   try {
+    console.log(data);
     const res = await postRequest("/orders", {
       method: "POST",
       headers: {
@@ -63,6 +64,7 @@ const orderSlice = createSlice({
         state.status = "succeeded";
         state.orderNum = action.payload.order.number;
         state.orderName = action.payload.name;
+        state.orderList = [];
       })
       .addCase(postData.rejected, (state, action) => {
         state.status = "failed";

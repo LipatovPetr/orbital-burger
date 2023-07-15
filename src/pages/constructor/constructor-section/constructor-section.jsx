@@ -16,6 +16,8 @@ import {
   checkoutPopupClosed,
 } from "../../../services/slices/popup-checkout-details";
 import { postData } from "../../../services/slices/order";
+import { clearConstructor } from "../../../services/slices/burger-constructor";
+import { useEffect } from "react";
 
 function ConstructorSection() {
   const navigate = useNavigate();
@@ -25,9 +27,16 @@ function ConstructorSection() {
   const orderPopupIsOpen = useSelector((state) => state.checkoutPopup.opened);
   const chosenBun = useSelector((state) => state.burgerConstructor.bun);
   const isUserLogged = useSelector((state) => state.user.user);
+  const orderStatus = useSelector((state) => state.order.status);
   const chosenStuffings = useSelector(
     (state) => state.burgerConstructor.stuffings
   );
+
+  useEffect(() => {
+    if (orderStatus === "succeeded") {
+      dispatch(clearConstructor());
+    }
+  }, [orderStatus]);
 
   const handleOrderClick = () => {
     if (!isUserLogged) {
