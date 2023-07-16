@@ -3,13 +3,13 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import OrderCard from "../../components/order-card/order-card";
 import cn from "classnames";
 import { useEffect, useMemo } from "react";
-import { connect, disconnect } from "../../services/ordersFeedAll/actions";
+import { connect, disconnect } from "../../services/FeedAllOrders/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Preloader from "../../components/preloader/preloader";
 
 function Orders() {
   const dispatch = useDispatch();
-  const ordersData = useSelector((state) => state.ordersAll.orders) || [];
+  const ordersData = useSelector((state) => state.allOrders.orders) || [];
   const { orders, total, totalToday } = ordersData;
 
   useEffect(() => {

@@ -32,6 +32,21 @@
   margin-left: 24px;
 }
 
+.status {
+  composes: text text_type_main-small from global;
+  margin-left: 24px;
+  margin-top: 8px;
+  font-weight: 700;
+}
+
+.status_done {
+  composes: text text_type_main-small from global;
+  margin-left: 24px;
+  margin-top: 8px;
+  font-weight: 700;
+  color: #0cc;
+}
+
 .ingredientsInfo {
   composes: text text_type_digits-default from global;
   display: flex;

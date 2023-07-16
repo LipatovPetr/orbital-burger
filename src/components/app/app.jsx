@@ -35,7 +35,8 @@ import modalReducer from "../../services/slices/popup-ingredient-details";
 import constructorReducer from "../../services/slices/burger-constructor";
 import orderReducer from "../../services/slices/order";
 import checkoutReducer from "../../services/slices/popup-checkout-details";
-import { feedReducer } from "../../services/ordersFeedAll/reducer";
+import { allOrdersReducer } from "../../services/FeedAllOrders/reducer";
+import { userOrdersReducer } from "../../services/FeedUserOrders/reducer";
 
 // Functions
 
@@ -50,7 +51,17 @@ import {
   wsError,
   wsMessage,
   wsOpen,
-} from "../../services/ordersFeedAll/actions";
+} from "../../services/FeedAllOrders/actions";
+
+import {
+  connectProfile,
+  disconnectProfile,
+  wsCloseProfile,
+  wsConnectingProfile,
+  wsErrorProfile,
+  wsMessageProfile,
+  wsOpenProfile,
+} from "../../services/FeedUserOrders/actions";
 
 const feedMiddleware = socketMiddleware({
   wsConnect: connect,
@@ -62,6 +73,16 @@ const feedMiddleware = socketMiddleware({
   wsDisconnect: disconnect,
 });
 
+const feedProfileMiddleware = socketMiddleware({
+  wsConnect: connectProfile,
+  onOpen: wsOpenProfile,
+  onClose: wsCloseProfile,
+  onError: wsErrorProfile,
+  onMessage: wsMessageProfile,
+  wsConnecting: wsConnectingProfile,
+  wsDisconnect: disconnectProfile,
+});
+
 const store = configureStore({
   reducer: {
     user: loginReducer,
@@ -70,10 +91,11 @@ const store = configureStore({
     order: orderReducer,
     ingredientsPopup: modalReducer,
     checkoutPopup: checkoutReducer,
-    ordersAll: feedReducer,
+    allOrders: allOrdersReducer,
+    userOrders: userOrdersReducer,
   },
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(feedMiddleware);
+    return getDefaultMiddleware().concat(feedMiddleware, feedProfileMiddleware);
   },
 });
 

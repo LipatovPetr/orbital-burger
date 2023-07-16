@@ -1,12 +1,13 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import "moment/locale/ru";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./order-card.module.css";
 
-function OrderCard({ data }) {
-  const { _id: id, ingredients, createdAt, number, name } = data;
+function OrderCard({ data, isProfile = false }) {
+  const [orderStatus, setOrderStatus] = useState("");
+  const { _id: id, ingredients, createdAt, number, name, status } = data;
   const allIngredients = useSelector((state) => state.ingredients.data);
 
   const orderIngredients = useMemo(() => {
@@ -47,20 +48,36 @@ function OrderCard({ data }) {
     0
   );
 
+  useEffect(() => {
+    let orderStatusText = "";
+    switch (status) {
+      case "created":
+        setOrderStatus("Создан");
+        break;
+      case "pending":
+        setOrderStatus("Готовится");
+        break;
+      case "done":
+        setOrderStatus("Выполнен");
+        break;
+      default:
+        setOrderStatus("Статус неизвестен");
+        break;
+    }
+  }, [status]);
+
   return (
     <div className={styles.card}>
       <div className={styles.infoContainer}>
         <p className={styles.id}>{`#${number}`}</p>
         <p className={styles.date}>{formattedDate}</p>
       </div>
-      <p
-        className={styles.title}
-        onClick={() => {
-          console.log(orderIngredients);
-        }}
-      >
-        {name}
-      </p>
+      <p className={styles.title}>{name}</p>
+      {isProfile && (
+        <p className={status === "done" ? styles.status_done : styles.status}>
+          {orderStatus}
+        </p>
+      )}
       <div className={styles.ingredientsInfo}>
         <div className={styles.imagesContainer}>
           {renderIngredients()}

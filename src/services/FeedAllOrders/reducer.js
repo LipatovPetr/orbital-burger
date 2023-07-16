@@ -7,7 +7,7 @@ const initialState = {
   connectionError: "",
 };
 
-export const feedReducer = createReducer(initialState, (builder) => {
+export const allOrdersReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(wsConnecting, (state) => {
       state.status = "connecting...";
