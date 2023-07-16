@@ -25,6 +25,7 @@ import ResetPassword from "../../pages/reset-password/reset-password";
 import Profile from "../../pages/profile/profile-edit/profile-edit";
 import OrdersProfile from "../../pages/profile/orders-profile/orders-profile";
 import IngredientView from "../../pages/ingredient-view/ingredient-view";
+import OrderView from "../../pages/order-view/order-view";
 import ErrorPage from "../../pages/error/error";
 
 // Reducers
@@ -124,6 +125,7 @@ const App = memo(() => {
           <Route index element={<Constructor />} />
           <Route path="login" element={<OnlyUnAuth component={<Login />} />} />
           <Route path="orders" element={<Orders />} />
+          <Route path="test" element={<OrderView />} />
 
           <Route
             path="register"

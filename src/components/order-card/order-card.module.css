@@ -10,7 +10,7 @@
   justify-content: space-between;
 }
 
-.id {
+.number {
   composes: text text_type_digits-default from global;
   padding: 0;
   margin: 0;

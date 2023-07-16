@@ -69,7 +69,7 @@ function OrderCard({ data, isProfile = false }) {
   return (
     <div className={styles.card}>
       <div className={styles.infoContainer}>
-        <p className={styles.id}>{`#${number}`}</p>
+        <p className={styles.number}>{`#${number}`}</p>
         <p className={styles.date}>{formattedDate}</p>
       </div>
       <p className={styles.title}>{name}</p>

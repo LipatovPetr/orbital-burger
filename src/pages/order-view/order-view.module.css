@@ -1,0 +1,60 @@
+.section {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 640px;
+}
+
+.number {
+  composes: text text_type_digits-default from global;
+  text-align: center;
+}
+
+.name {
+  composes: text text_type_main-medium from global;
+  margin-top: 40px;
+}
+
+.status {
+  composes: text text_type_main-small from global;
+  margin-top: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  color: #0cc;
+}
+
+.text {
+  composes: text text_type_main-medium from global;
+  margin-top: 60px;
+}
+
+.list {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.date {
+  composes: text text_type_main-default text_color_inactive from global;
+}
+
+.priceContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.price {
+  composes: text text_type_digits-default from global;
+  margin-right: 8px;
+}
