@@ -2,7 +2,14 @@
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin-top: 122px;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 1600px) {
+  .section {
+    margin-top: 60px;
+  }
 }
 
 .container {
@@ -17,6 +24,18 @@
 .name {
   composes: text text_type_main-medium from global;
   margin-top: 40px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Adjust this value based on the number of lines you want to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 1600px) {
+  .name {
+    margin-top: 40px;
+    font-size: 20px;
+  }
 }
 
 .status {
@@ -32,11 +51,34 @@
   margin-top: 60px;
 }
 
+@media screen and (max-width: 1600px) {
+  .text {
+    margin-top: 40px;
+    font-size: 20px;
+  }
+}
+
 .list {
   margin-top: 24px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  max-height: 305px;
+  overflow-y: auto;
+}
+
+.list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: rgb(15, 15, 33);
+}
+
+.list::-webkit-scrollbar-thumb {
+  background-color: rgb(76, 76, 254);
+  border-radius: 20px;
+  border: 3px solid rgb(76, 76, 254);
 }
 
 .footer {

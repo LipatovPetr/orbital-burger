@@ -125,7 +125,8 @@ const App = memo(() => {
           <Route index element={<Constructor />} />
           <Route path="login" element={<OnlyUnAuth component={<Login />} />} />
           <Route path="orders" element={<Orders />} />
-          <Route path="test" element={<OrderView />} />
+
+          <Route path="orders/:id" element={<OrderView />} />
 
           <Route
             path="register"

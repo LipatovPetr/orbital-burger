@@ -1,7 +1,13 @@
 .ingredientCard {
   display: flex;
-  align-items: center;
   gap: 16px;
+  justify-content: space-between;
+}
+
+.ingredientContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .ingredientImage {
@@ -11,6 +17,7 @@
   background-position: center;
   border-radius: 50%;
   border: 2px solid rgb(76, 76, 254);
+  margin-right: 16px;
 }
 
 .ingredientName {
@@ -22,12 +29,13 @@
 
 .ingredientPriceContainer {
   display: flex;
+  flex-shrink: 1;
   align-items: center;
+  padding-right: 24px;
 }
 
 .ingredientPrice {
   composes: text text_type_digits-default from global;
   margin-right: 8px;
-  width: 192px;
   text-align: right;
 }

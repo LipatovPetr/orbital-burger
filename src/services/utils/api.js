@@ -8,7 +8,7 @@ export async function handleResponse(res) {
   return jsonData;
 }
 
-export const postRequest = async (type, options) => {
+export const fetchRequest = async (type, options) => {
   const res = await fetch(`${SERVER_API + type}`, options);
   return res;
 };

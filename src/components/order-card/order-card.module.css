@@ -2,6 +2,8 @@
   width: 100%;
   border-radius: 40px;
   background-color: #1c1c21;
+  text-decoration: none;
+  color: #fff;
 }
 
 .infoContainer {
@@ -85,7 +87,7 @@
 }
 
 .image:first-child {
-  margin-left: 0; /* No overlap for the first image */
+  margin-left: 0;
 }
 
 .priceContainer {

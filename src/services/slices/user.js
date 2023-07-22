@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  postRequest,
+  fetchRequest,
   patchRequest,
   fetchWithRefresh,
   handleResponse,
@@ -17,9 +17,10 @@ const initialState = {
   isAuthChecked: false,
 };
 
+// обновить
 export const register = createAsyncThunk("user/register", async (data) => {
   try {
-    const res = await postRequest("/auth/register", data);
+    const res = await fetchRequest("/auth/register", data);
     const jsonData = await handleResponse(res);
     localStorage.setItem("accessToken", jsonData.accessToken);
     localStorage.setItem("refreshToken", jsonData.refreshToken);
@@ -31,7 +32,7 @@ export const register = createAsyncThunk("user/register", async (data) => {
 
 export const login = createAsyncThunk("user/login", async (data) => {
   try {
-    const res = await postRequest("/auth/login", {
+    const res = await fetchRequest("/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +50,7 @@ export const login = createAsyncThunk("user/login", async (data) => {
 
 export const logout = createAsyncThunk("user/logout", async () => {
   try {
-    const res = await postRequest("/auth/logout", {
+    const res = await fetchRequest("/auth/logout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { postRequest, handleResponse } from "../utils/api";
+import { fetchRequest, handleResponse } from "../utils/api";
 
 const initialState = {
   orderList: [],
@@ -12,7 +12,7 @@ const initialState = {
 export const postData = createAsyncThunk("order/postData", async (data) => {
   try {
     console.log(data);
-    const res = await postRequest("/orders", {
+    const res = await fetchRequest("/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,46 +1,116 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import cn from "classnames";
 import styles from "./order-view.module.css";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientCard from "../../components/ingredient-card/ingredient-card";
-
-const mockData = {
-  _id: "64b2b6a082e277001bf8f878",
-  ingredients: [
-    "643d69a5c3f7b9001cfa093d",
-    "643d69a5c3f7b9001cfa0943",
-    "643d69a5c3f7b9001cfa0942",
-    "643d69a5c3f7b9001cfa093d",
-  ],
-  status: "done",
-  name: "Space флюоресцентный spicy бургер",
-  createdAt: "2023-07-15T15:09:20.425Z",
-  updatedAt: "2023-07-15T15:09:20.544Z",
-  number: 12669,
-};
+import { fetchRequest, handleResponse } from "../../services/utils/api";
+import Preloader from "../../components/preloader/preloader";
+import moment from "moment";
+import "moment/locale/ru";
 
 function OrderView() {
+  const [order, setOrder] = useState({});
+  const [orderStatus, setOrderStatus] = useState("");
   const { id } = useParams();
-  const ingredients = useSelector((state) => state.ingredients.data);
-  const chosenIngredient = ingredients.find((item) => item._id === id);
+  const allIngredients = useSelector((state) => state.ingredients.data);
 
-  return (
+  useEffect(() => {
+    async function getOrder() {
+      try {
+        const res = await fetchRequest(`/orders/${id}`);
+        const jsonData = await handleResponse(res);
+        setOrder(jsonData.orders[0]);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getOrder();
+  }, []);
+
+  const orderIngredients = useMemo(() => {
+    if (order.ingredients) {
+      return order.ingredients.map((id) =>
+        allIngredients.find((item) => item._id === id)
+      );
+    }
+  }, [allIngredients, order.ingredients]);
+
+  useEffect(() => {
+    switch (order.status) {
+      case "created":
+        setOrderStatus("Создан");
+        break;
+      case "pending":
+        setOrderStatus("Готовится");
+        break;
+      case "done":
+        setOrderStatus("Выполнен");
+        break;
+      default:
+        setOrderStatus("Статус неизвестен");
+        break;
+    }
+  }, [order.status]);
+
+  const formattedDate = useMemo(() => {
+    const currentDate = moment();
+    return moment(order.createdAt).utcOffset("+03:00").calendar(currentDate, {
+      sameDay: "[Сегодня,] HH:mm [i-GMT+3]",
+      lastDay: "[Вчера,] HH:mm [i-GMT+3]",
+      lastWeek: "dddd, HH:mm [i-GMT+3]",
+      sameElse: "DD MMMM YYYY, HH:mm [i-GMT+3]",
+    });
+  }, [order.createdAt]);
+
+  const filteredIngredients = useMemo(() => {
+    if (orderIngredients) {
+      return Object.values(
+        orderIngredients.reduce((acc, item) => {
+          const id = item._id;
+          if (!acc[id]) {
+            acc[id] = { ...item, count: 1 };
+          } else {
+            acc[id].count++;
+          }
+          return acc;
+        }, {})
+      );
+    }
+  }, [orderIngredients]);
+
+  const totalPrice = useMemo(() => {
+    return orderIngredients?.reduce(
+      (accumulator, currentIngredient) =>
+        accumulator + (currentIngredient?.price || 0),
+      0
+    );
+  }, [orderIngredients]);
+
+  return Object.keys(order).length === 0 ? (
+    <Preloader />
+  ) : (
     <div className={styles.section}>
       <div className={styles.container}>
-        <p className={styles.number}>{`#${mockData.number}`}</p>
-        <p className={styles.name}>{mockData.name}</p>
-        <p className={styles.status}>{mockData.status}</p>
+        <p
+          className={styles.number}
+          onClick={() => {
+            console.log(orderIngredients);
+          }}
+        >{`#${order.number}`}</p>
+        <p className={styles.name}>{order.name}</p>
+        <p className={styles.status}>{orderStatus}</p>
         <p className={styles.text}>Состав:</p>
         <div className={styles.list}>
-          <IngredientCard />
-          <IngredientCard />
+          {filteredIngredients?.map((item) => {
+            return <IngredientCard data={item} />;
+          })}
         </div>
         <div className={styles.footer}>
-          <p className={styles.date}>{mockData.createdAt}</p>
+          <p className={styles.date}>{formattedDate}</p>
           <div className={styles.priceContainer}>
-            <p className={styles.price}>420</p>
+            <p className={styles.price}>{totalPrice}</p>
             <CurrencyIcon />
           </div>
         </div>

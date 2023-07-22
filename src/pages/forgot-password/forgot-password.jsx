@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetRequest, clearError } from "../../services/slices/user";
-import { postRequest, handleResponse } from "../../services/utils/api";
+import { fetchRequest, handleResponse } from "../../services/utils/api";
 
 import {
   EmailInput,
@@ -29,7 +29,7 @@ function ForgotPassword() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    return postRequest("/password-reset", {
+    return fetchRequest("/password-reset", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

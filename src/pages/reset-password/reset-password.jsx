@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./reset-password.module.css";
 import cn from "classnames";
-import { postRequest, handleResponse } from "../../services/utils/api";
+import { fetchRequest, handleResponse } from "../../services/utils/api";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import {
@@ -29,7 +29,7 @@ function ResetPassword() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    return postRequest("/password-reset/reset", {
+    return fetchRequest("/password-reset/reset", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

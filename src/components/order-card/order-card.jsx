@@ -4,6 +4,7 @@ import moment from "moment";
 import "moment/locale/ru";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./order-card.module.css";
+import { Link } from "react-router-dom";
 
 function OrderCard({ data, isProfile = false }) {
   const [orderStatus, setOrderStatus] = useState("");
@@ -67,7 +68,7 @@ function OrderCard({ data, isProfile = false }) {
   }, [status]);
 
   return (
-    <div className={styles.card}>
+    <Link to={`${number}`} className={styles.card}>
       <div className={styles.infoContainer}>
         <p className={styles.number}>{`#${number}`}</p>
         <p className={styles.date}>{formattedDate}</p>
@@ -101,7 +102,7 @@ function OrderCard({ data, isProfile = false }) {
           <CurrencyIcon />
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
