@@ -4,9 +4,10 @@ import moment from "moment";
 import "moment/locale/ru";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./order-card.module.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function OrderCard({ data, isProfile = false }) {
+  const location = useLocation();
   const [orderStatus, setOrderStatus] = useState("");
   const { _id: id, ingredients, createdAt, number, name, status } = data;
   const allIngredients = useSelector((state) => state.ingredients.data);
@@ -68,7 +69,11 @@ function OrderCard({ data, isProfile = false }) {
   }, [status]);
 
   return (
-    <Link to={`${number}`} className={styles.card}>
+    <Link
+      to={`${number}`}
+      state={{ background: location }}
+      className={styles.card}
+    >
       <div className={styles.infoContainer}>
         <p className={styles.number}>{`#${number}`}</p>
         <p className={styles.date}>{formattedDate}</p>

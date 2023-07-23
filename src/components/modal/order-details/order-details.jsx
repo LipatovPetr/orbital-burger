@@ -1,16 +1,16 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
 import cn from "classnames";
-import styles from "./order-view.module.css";
+import styles from "./order-details.module.css";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientCard from "../../components/ingredient-card/ingredient-card";
-import { fetchRequest, handleResponse } from "../../services/utils/api";
-import Preloader from "../../components/preloader/preloader";
+import IngredientCard from "../../ingredient-card/ingredient-card";
+import { fetchRequest, handleResponse } from "../../../services/utils/api";
+import Preloader from "../../preloader/preloader";
 import moment from "moment";
 import "moment/locale/ru";
+import { useState, useEffect, useMemo } from "react";
 
-function OrderView() {
+function OrderDetails() {
   const [order, setOrder] = useState({});
   const [orderStatus, setOrderStatus] = useState("");
   const { id } = useParams();
@@ -91,27 +91,25 @@ function OrderView() {
   return Object.keys(order).length === 0 ? (
     <Preloader />
   ) : (
-    <div className={styles.section}>
-      <div className={styles.container}>
-        <p className={styles.number}>{`#${order.number}`}</p>
-        <p className={styles.name}>{order.name}</p>
-        <p className={styles.status}>{orderStatus}</p>
-        <p className={styles.text}>Состав:</p>
-        <div className={styles.list}>
-          {groupedIngredients?.map((item) => {
-            return <IngredientCard data={item} />;
-          })}
-        </div>
-        <div className={styles.footer}>
-          <p className={styles.date}>{formattedDate}</p>
-          <div className={styles.priceContainer}>
-            <p className={styles.price}>{totalPrice}</p>
-            <CurrencyIcon />
-          </div>
+    <div className={styles.container}>
+      <p className={styles.number}>{`#${order.number}`}</p>
+      <p className={styles.name}>{order.name}</p>
+      <p className={styles.status}>{orderStatus}</p>
+      <p className={styles.text}>Состав:</p>
+      <div className={styles.list}>
+        {groupedIngredients?.map((item) => {
+          return <IngredientCard data={item} />;
+        })}
+      </div>
+      <div className={styles.footer}>
+        <p className={styles.date}>{formattedDate}</p>
+        <div className={styles.priceContainer}>
+          <p className={styles.price}>{totalPrice}</p>
+          <CurrencyIcon />
         </div>
       </div>
     </div>
   );
 }
 
-export default OrderView;
+export default OrderDetails;

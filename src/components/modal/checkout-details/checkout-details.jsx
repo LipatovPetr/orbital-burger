@@ -1,11 +1,11 @@
-import styles from "./order-details.module.css";
-import imageCheck from "../../../../images/done.png";
+import styles from "./checkout-details.module.css";
+import imageCheck from "../../../images/done.png";
 import PropTypes from "prop-types";
 import cn from "classnames";
 import { useSelector } from "react-redux";
 import MoonLoader from "react-spinners/MoonLoader";
 
-function OrderDetails() {
+function CheckoutDetails() {
   const orderStatus = useSelector((state) => state.order.status);
   const orderNum = useSelector((state) => state.order.orderNum);
 
@@ -55,4 +55,4 @@ function OrderDetails() {
   );
 }
 
-export default OrderDetails;
+export default CheckoutDetails;

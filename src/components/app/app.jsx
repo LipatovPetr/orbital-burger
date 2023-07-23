@@ -12,7 +12,7 @@ import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import Layout from "../layout/layout.jsx";
 import ProfileLayout from "../profile-layout/profile-layout";
 import Modal from "../modal/modal";
-import IngredientDetails from "../../pages/constructor/ingredients-section/ingredient-details/ingredient-details";
+import IngredientDetails from "../modal/ingredient-details/ingredient-details";
 import Orders from "../../pages/orders/orders";
 
 // Pages
@@ -63,6 +63,7 @@ import {
   wsMessageProfile,
   wsOpenProfile,
 } from "../../services/FeedUserOrders/actions";
+import OrderDetails from "../modal/order-details/order-details";
 
 const feedMiddleware = socketMiddleware({
   wsConnect: connect,
@@ -149,9 +150,18 @@ const App = memo(() => {
             <Route index element={<Profile />} />
             <Route path="orders" element={<OrdersProfile />} />
           </Route>
+
+          <Route
+            path="profile/orders/:id"
+            element={<OnlyAuth component={<OrderView />} />}
+          />
+
           <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>
+
+      {/* Контекстные модальные окна  */}
+
       {background && (
         <Routes>
           <Route
@@ -163,6 +173,26 @@ const App = memo(() => {
               >
                 <IngredientDetails />
               </Modal>
+            }
+          />
+          <Route
+            path="/orders/:id"
+            element={
+              <Modal popupClosed={() => navigate(-1)}>
+                <OrderDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <OnlyAuth
+                component={
+                  <Modal popupClosed={() => navigate(-1)}>
+                    <OrderDetails />
+                  </Modal>
+                }
+              />
             }
           />
         </Routes>

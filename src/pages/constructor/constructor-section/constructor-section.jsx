@@ -9,7 +9,7 @@ import {
 
 import Modal from "../../../components/modal/modal";
 import styles from "./constructor-section.module.css";
-import OrderDetails from "./order-details/order-details";
+import CheckoutDetails from "../../../components/modal/checkout-details/checkout-details";
 import IngredientsList from "./ingredients-list/ingredients-list";
 import {
   checkoutPopupOpened,
@@ -72,7 +72,7 @@ function ConstructorSection() {
 
       {orderPopupIsOpen && (
         <Modal popupClosed={() => dispatch(checkoutPopupClosed())}>
-          <OrderDetails checkOutData={"checkOutData"} />
+          <CheckoutDetails checkOutData={"checkOutData"} />
         </Modal>
       )}
     </div>
