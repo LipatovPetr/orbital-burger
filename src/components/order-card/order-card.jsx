@@ -1,8 +1,9 @@
 import React, { useMemo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import moment from "moment";
-import "moment/locale/ru";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  CurrencyIcon,
+  FormattedDate,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./order-card.module.css";
 import { Link, useLocation } from "react-router-dom";
 
@@ -19,16 +20,6 @@ function OrderCard({ data, isProfile = false }) {
       );
     }
   }, [allIngredients]);
-
-  const formattedDate = useMemo(() => {
-    const currentDate = moment();
-    return moment(createdAt).utcOffset("+03:00").calendar(currentDate, {
-      sameDay: "[Сегодня,] HH:mm [i-GMT+3]",
-      lastDay: "[Вчера,] HH:mm [i-GMT+3]",
-      lastWeek: "dddd, HH:mm [i-GMT+3]",
-      sameElse: "DD MMMM YYYY, HH:mm [i-GMT+3]",
-    });
-  }, [createdAt]);
 
   const renderIngredients = () => {
     const filteredIngredients = orderIngredients.slice(0, 5);
@@ -76,7 +67,10 @@ function OrderCard({ data, isProfile = false }) {
     >
       <div className={styles.infoContainer}>
         <p className={styles.number}>{`#${number}`}</p>
-        <p className={styles.date}>{formattedDate}</p>
+        <div>
+          <FormattedDate className={styles.date} date={new Date(createdAt)} />
+          <span className={styles.date}>i-GMT+3</span>
+        </div>
       </div>
       <p className={styles.title}>{name}</p>
       {isProfile && (
