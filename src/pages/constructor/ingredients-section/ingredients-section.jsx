@@ -4,7 +4,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredients-section.module.css";
 import IngredientsGroup from "./ingredients-group/ingredients-group";
 import Modal from "../../../components/modal/modal.jsx";
-import IngredientDetails from "./ingredient-details/ingredient-details";
+import IngredientDetails from "../../../components/modal/ingredient-details/ingredient-details";
 import Placeholder from "./placeholder/placeholder";
 import { INGREDIENTS_TYPES } from "../../../services/utils/constants";
 import { ingredientsPopupClosed } from "../../../services/slices/popup-ingredient-details";

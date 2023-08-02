@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { postRequest, handleResponse } from "../utils/api";
+import { fetchRequest, handleResponse } from "../utils/api";
 
 const initialState = {
   orderList: [],
@@ -11,7 +11,8 @@ const initialState = {
 
 export const postData = createAsyncThunk("order/postData", async (data) => {
   try {
-    const res = await postRequest("/orders", {
+    console.log(data);
+    const res = await fetchRequest("/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -63,6 +64,7 @@ const orderSlice = createSlice({
         state.status = "succeeded";
         state.orderNum = action.payload.order.number;
         state.orderName = action.payload.name;
+        state.orderList = [];
       })
       .addCase(postData.rejected, (state, action) => {
         state.status = "failed";

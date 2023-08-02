@@ -8,7 +8,7 @@ export async function handleResponse(res) {
   return jsonData;
 }
 
-export const postRequest = async (type, options) => {
+export const fetchRequest = async (type, options) => {
   const res = await fetch(`${SERVER_API + type}`, options);
   return res;
 };
@@ -43,6 +43,7 @@ export const fetchWithRefresh = async (type, options) => {
     return await handleResponse(res);
   } catch (err) {
     if (err.message === "jwt expired") {
+      console.log("Токен доступа устарел");
       const refreshData = await refreshToken("/auth/token");
       if (!refreshData.success) {
         return Promise.reject(refreshData);
@@ -51,7 +52,7 @@ export const fetchWithRefresh = async (type, options) => {
       localStorage.setItem("accessToken", refreshData.accessToken);
       options.headers.authorization = refreshData.accessToken;
       const res = await fetch(`${SERVER_API + type}`, options);
-      console.log("успешно перезахожу");
+      console.log("Токен обновлен,авторизация пройдена");
       return await handleResponse(res);
     } else {
       return Promise.reject(err);

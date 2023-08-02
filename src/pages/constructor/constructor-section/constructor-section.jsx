@@ -9,13 +9,15 @@ import {
 
 import Modal from "../../../components/modal/modal";
 import styles from "./constructor-section.module.css";
-import OrderDetails from "./order-details/order-details";
+import CheckoutDetails from "../../../components/modal/checkout-details/checkout-details";
 import IngredientsList from "./ingredients-list/ingredients-list";
 import {
   checkoutPopupOpened,
   checkoutPopupClosed,
 } from "../../../services/slices/popup-checkout-details";
 import { postData } from "../../../services/slices/order";
+import { clearConstructor } from "../../../services/slices/burger-constructor";
+import { useEffect } from "react";
 
 function ConstructorSection() {
   const navigate = useNavigate();
@@ -25,9 +27,16 @@ function ConstructorSection() {
   const orderPopupIsOpen = useSelector((state) => state.checkoutPopup.opened);
   const chosenBun = useSelector((state) => state.burgerConstructor.bun);
   const isUserLogged = useSelector((state) => state.user.user);
+  const orderStatus = useSelector((state) => state.order.status);
   const chosenStuffings = useSelector(
     (state) => state.burgerConstructor.stuffings
   );
+
+  useEffect(() => {
+    if (orderStatus === "succeeded") {
+      dispatch(clearConstructor());
+    }
+  }, [orderStatus]);
 
   const handleOrderClick = () => {
     if (!isUserLogged) {
@@ -63,7 +72,7 @@ function ConstructorSection() {
 
       {orderPopupIsOpen && (
         <Modal popupClosed={() => dispatch(checkoutPopupClosed())}>
-          <OrderDetails checkOutData={"checkOutData"} />
+          <CheckoutDetails checkOutData={"checkOutData"} />
         </Modal>
       )}
     </div>

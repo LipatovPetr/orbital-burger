@@ -1,66 +1,70 @@
 .section {
-    display: flex;
-    flex-direction: column;
-    width: 600px;
+  display: flex;
+  flex-direction: column;
+  width: 600px;
 }
 
 .heading {
-    padding-top: 40px;
-    background-color: #131316;
+  padding-top: 40px;
+  background-color: #131316;
 }
 
 .tab {
-    display: flex;
-    background-color: #131316;
-
+  display: flex;
+  background-color: #131316;
 }
 
 .menuSection {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    background-color: #131316;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #131316;
 }
 
 .menuSection::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 
 .menuSection::-webkit-scrollbar-track {
-    background: rgb(15, 15, 33);
+  background: rgb(15, 15, 33);
 }
 
 .menuSection::-webkit-scrollbar-thumb {
-    background-color: rgb(76, 76, 254);
-    border-radius: 20px;
-    border: 3px solid rgb(76, 76, 254);
+  background-color: rgb(76, 76, 254);
+  border-radius: 20px;
+  border: 3px solid rgb(76, 76, 254);
 }
 
 .ingredientsSubgroup {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .card {
-    position: relative;
-    width: 272px;
-    height: 208px;
-    background-color: #131316;
+  position: relative;
+  width: 272px;
+  height: 208px;
+  background-color: #131316;
 }
 
 .cardImage {
-    width: 240px;
-    height: 120px;
+  width: 240px;
+  height: 120px;
 }
 
 .priceElement {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .cardTitle {
-    text-align: center;
+  text-align: center;
 }
 
+.list {
+  list-style-type: none;
+}
 
-
+.listItem {
+  list-style-type: none;
+}
