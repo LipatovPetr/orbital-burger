@@ -20,10 +20,14 @@ const initialState = {
 // обновить
 export const register = createAsyncThunk("user/register", async (data) => {
   try {
-    const res = await fetchRequest("/auth/register", data);
+    const res = await fetchRequest("/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
     const jsonData = await handleResponse(res);
-    localStorage.setItem("accessToken", jsonData.accessToken);
-    localStorage.setItem("refreshToken", jsonData.refreshToken);
     return jsonData;
   } catch (error) {
     throw error;

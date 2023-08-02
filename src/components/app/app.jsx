@@ -1,6 +1,6 @@
 // Libs
 
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import toast, { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import { useEffect, memo } from "react";
@@ -65,6 +65,8 @@ import {
 } from "../../services/FeedUserOrders/actions";
 import OrderDetails from "../modal/order-details/order-details";
 
+// Websokets Middleware
+
 const feedMiddleware = socketMiddleware({
   wsConnect: connect,
   onOpen: wsOpen,
@@ -85,6 +87,8 @@ const feedProfileMiddleware = socketMiddleware({
   wsDisconnect: disconnectProfile,
 });
 
+// Storage
+
 const store = configureStore({
   reducer: {
     user: loginReducer,
@@ -100,6 +104,8 @@ const store = configureStore({
     return getDefaultMiddleware().concat(feedMiddleware, feedProfileMiddleware);
   },
 });
+
+// Component
 
 const App = memo(() => {
   const navigate = useNavigate();
@@ -117,7 +123,7 @@ const App = memo(() => {
     } else {
       store.dispatch(authChecked());
     }
-  }, []);
+  }, [accessToken]);
 
   return (
     <Provider store={store}>
