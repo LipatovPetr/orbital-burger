@@ -17,6 +17,7 @@ export const socketMiddleware = (wsActions) => {
       } = wsActions;
 
       if (type === wsConnect.type) {
+        console.log(action);
         socket = new WebSocket(action.payload);
         dispatch(wsConnecting());
       }
@@ -33,7 +34,9 @@ export const socketMiddleware = (wsActions) => {
         socket.onmessage = (event) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
-
+          if (parsedData.message === "Invalid or missing token") {
+            console.log("нужно обновить токен");
+          }
           dispatch(onMessage(parsedData));
         };
 
