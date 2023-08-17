@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./reset-password.module.css";
 import cn from "classnames";
-import { fetchRequest, handleResponse } from "../../services/utils/api";
+import { fetchRequest, handleResponse } from "../../utils/api/api";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import {

@@ -89,6 +89,7 @@
 
 .date {
   composes: text text_type_main-default text_color_inactive from global;
+  margin-right: 10px;
 }
 
 .priceContainer {

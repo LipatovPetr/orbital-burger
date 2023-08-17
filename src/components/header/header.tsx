@@ -1,5 +1,4 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { useEffect } from "react";
 import cn from "classnames";
 import {
   Logo,
@@ -9,7 +8,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./header.module.css";
 
-function Header() {
+function Header(): JSX.Element {
   const location = useLocation();
   return (
     <header className={styles.navContainer}>
