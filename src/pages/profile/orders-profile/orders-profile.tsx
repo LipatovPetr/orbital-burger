@@ -15,7 +15,6 @@ function OrdersProfile() {
   const dispatch = useAppDispatch();
   const orders =
     useAppSelector((state) => state.userOrders.ordersData?.orders) || [];
-
   const ordersReversed = [...orders].reverse();
 
   const accessToken = localStorage.getItem("accessToken");
@@ -35,7 +34,7 @@ function OrdersProfile() {
     <>
       <div className={styles.container}>
         {ordersReversed?.map((order) => (
-          <OrderCard data={order} isProfile={true} />
+          <OrderCard data={order} isProfile={true} key={order._id} />
         ))}
       </div>
     </>
