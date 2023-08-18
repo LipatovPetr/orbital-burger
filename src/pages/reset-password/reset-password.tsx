@@ -19,7 +19,7 @@ function ResetPassword() {
   });
   const [errorMessage, setErrorMessage] = useState(null);
 
-  function handleChange(event) {
+  function handleChange(event: any) {
     const { name, value } = event.target;
     setResetPassFormData((prev) => ({
       ...prev,
@@ -27,7 +27,7 @@ function ResetPassword() {
     }));
   }
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: any) {
     event.preventDefault();
     return fetchRequest("/password-reset/reset", {
       method: "POST",
@@ -51,7 +51,7 @@ function ResetPassword() {
   if (errorMessage) {
     setTimeout(() => {
       setErrorMessage(null);
-    }, "3000");
+    }, 3000);
   }
   if (isResetInitiated) {
     return (

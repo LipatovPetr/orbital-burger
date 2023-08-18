@@ -5,20 +5,22 @@ import { useParams } from "react-router-dom";
 
 function IngredientView() {
   const { id } = useParams();
-  const ingredients = useAppSelector((state) => state.ingredients.data);
+  const ingredients = useAppSelector((state) => state.ingredients.data)!;
   const chosenIngredient = ingredients.find((item) => item._id === id);
-  const { image, name, calories, proteins, carbohydrates, fat } =
-    chosenIngredient!;
 
   return (
     <section className={styles.section}>
       {chosenIngredient && (
         <div className={styles.box}>
           <h2 className={styles.title}>Детали ингредиента</h2>
-          <img src={image} alt={name} className={styles.image} />
+          <img
+            src={chosenIngredient.image}
+            alt={chosenIngredient.name}
+            className={styles.image}
+          />
 
           <h3 className={cn("text", "text_type_main-medium", "pt-4", "pb-8")}>
-            {name}
+            {chosenIngredient.name}
           </h3>
 
           <ul className={cn(styles.details, "pt-8")}>
@@ -31,7 +33,7 @@ function IngredientView() {
               )}
             >
               <span>Калории,ккал</span>
-              {calories}
+              {chosenIngredient.calories}
             </li>
 
             <li
@@ -43,7 +45,7 @@ function IngredientView() {
               )}
             >
               <span>Белки, г</span>
-              {proteins}
+              {chosenIngredient.proteins}
             </li>
 
             <li
@@ -55,7 +57,7 @@ function IngredientView() {
               )}
             >
               <span>Жиры, г</span>
-              {fat}
+              {chosenIngredient.fat}
             </li>
 
             <li
@@ -67,7 +69,7 @@ function IngredientView() {
               )}
             >
               <span>Углеводы, г</span>
-              {carbohydrates}
+              {chosenIngredient.carbohydrates}
             </li>
           </ul>
         </div>
