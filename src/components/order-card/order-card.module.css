@@ -19,8 +19,12 @@
   margin-left: 24px;
 }
 
-.date {
+.dateContainer {
   composes: text text_type_main-default text_color_inactive from global;
+  margin-right: 24px;
+}
+
+.date {
   padding: 0;
   margin: 0;
   margin-right: 10px;

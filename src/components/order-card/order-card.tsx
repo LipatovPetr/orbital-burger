@@ -64,9 +64,9 @@ function OrderCard({ data, isProfile = false }: OrderCardProps) {
             console.log(data);
           }}
         >{`#${number}`}</p>
-        <div>
+        <div className={styles.dateContainer}>
           <FormattedDate className={styles.date} date={new Date(createdAt)} />
-          <span className={styles.date}>i-GMT+3</span>
+          <span>i-GMT+3</span>
         </div>
       </div>
       <p className={styles.title}>{name}</p>
