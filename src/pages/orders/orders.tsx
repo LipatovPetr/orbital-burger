@@ -38,7 +38,7 @@ function Orders() {
     [filteredOrders]
   );
 
-  return ordersData ? (
+  return ordersData && filteredOrders && completedOrders && processedOrders ? (
     <div className={styles.content}>
       <h1 className={styles.heading}>Лента заказов</h1>
       <div className={styles.container}>

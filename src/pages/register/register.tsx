@@ -34,7 +34,9 @@ function Register() {
     }, 3000);
   }, [errorMessage]);
 
-  function handleChange(event: any) {
+  function handleChange(event: any): void {
+    console.log(event);
+    console.log(typeof event);
     const { name, value } = event.target;
     setRegisterFormData((prev) => ({
       ...prev,
@@ -42,7 +44,7 @@ function Register() {
     }));
   }
 
-  function handleSubmit(event: any) {
+  function handleSubmit(event: any): void {
     event.preventDefault();
     dispatch(register(registerFormData));
   }

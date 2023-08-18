@@ -19,7 +19,7 @@ function ResetPassword() {
   });
   const [errorMessage, setErrorMessage] = useState(null);
 
-  function handleChange(event: any) {
+  function handleChange(event: any): void {
     const { name, value } = event.target;
     setResetPassFormData((prev) => ({
       ...prev,

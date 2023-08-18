@@ -3,12 +3,6 @@ import cn from "classnames";
 import { Link } from "react-router-dom";
 import React, { useEffect } from "react";
 
-import {
-  Input,
-  EmailInput,
-  PasswordInput,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderCard from "../../../components/order-card/order-card";
 import { useAppDispatch, useAppSelector } from "../../../components/app/app";
 import Preloader from "../../../components/preloader/preloader";
@@ -22,9 +16,10 @@ function OrdersProfile() {
   const orders =
     useAppSelector((state) => state.userOrders.ordersData?.orders) || [];
 
+  const ordersReversed = [...orders].reverse();
+
   const accessToken = localStorage.getItem("accessToken");
   const accessTokenWithoutBearer = accessToken?.substring(7);
-
   useEffect(() => {
     dispatch(
       connectProfile(
@@ -36,16 +31,16 @@ function OrdersProfile() {
     };
   }, []);
 
-  return orders?.length < 1 ? (
-    <Preloader />
-  ) : (
+  return ordersReversed ? (
     <>
       <div className={styles.container}>
-        {[...orders]?.reverse().map((order) => (
+        {ordersReversed?.map((order) => (
           <OrderCard data={order} isProfile={true} />
         ))}
       </div>
     </>
+  ) : (
+    <Preloader />
   );
 }
 
