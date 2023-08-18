@@ -40,13 +40,13 @@ function Modal({ children, title, popupClosed }: ModalProps) {
               {title}
             </h2>
           )}
-          <button
-            onClick={() => handleCloseButton()}
-            className={styles.closeButton}
-          >
-            <CloseIcon type="primary" />
-          </button>
         </div>
+        <button
+          onClick={() => handleCloseButton()}
+          className={styles.closeButton}
+        >
+          <CloseIcon type="primary" />
+        </button>
         {children}
       </section>
       <ModalOverlay popupClosed={popupClosed} />
