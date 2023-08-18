@@ -1,6 +1,4 @@
 import styles from "./orders-profile.module.css";
-import cn from "classnames";
-import { Link } from "react-router-dom";
 import React, { useEffect } from "react";
 
 import OrderCard from "../../../components/order-card/order-card";
@@ -28,7 +26,7 @@ function OrdersProfile() {
     return () => {
       dispatch(disconnectProfile());
     };
-  }, []);
+  }, [dispatch, accessTokenWithoutBearer]);
 
   return ordersReversed ? (
     <>

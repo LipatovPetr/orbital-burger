@@ -18,7 +18,7 @@ function Orders() {
     return () => {
       dispatch(disconnect());
     };
-  }, []);
+  }, [dispatch]);
 
   const filteredOrders = useMemo(
     () =>
