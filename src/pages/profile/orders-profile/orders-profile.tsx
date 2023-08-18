@@ -14,6 +14,9 @@ function OrdersProfile() {
   const orders =
     useAppSelector((state) => state.userOrders.ordersData?.orders) || [];
   const ordersReversed = [...orders].reverse();
+  const mappedOrders = ordersReversed?.map((order) => (
+    <OrderCard data={order} isProfile={true} key={order._id} />
+  ));
 
   const accessToken = localStorage.getItem("accessToken");
   const accessTokenWithoutBearer = accessToken?.substring(7);
@@ -28,16 +31,13 @@ function OrdersProfile() {
     };
   }, [dispatch, accessTokenWithoutBearer]);
 
-  return ordersReversed ? (
-    <>
-      <div className={styles.container}>
-        {ordersReversed?.map((order) => (
-          <OrderCard data={order} isProfile={true} key={order._id} />
-        ))}
-      </div>
-    </>
+  return mappedOrders.length !== 0 ? (
+    <div className={styles.container}>{mappedOrders}</div>
   ) : (
-    <Preloader />
+    <>
+      {console.log("preloader")}
+      <Preloader />
+    </>
   );
 }
 
