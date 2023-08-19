@@ -1,10 +1,14 @@
+import { AppDispatch, RootState } from "../../components/app/app";
+
 import {
   ActionCreatorWithoutPayload,
   ActionCreatorWithPayload,
   PayloadAction,
+  MiddlewareAPI,
+  Middleware,
 } from "@reduxjs/toolkit";
 
-export type socketMiddlewareProps = {
+export type SocketMiddlewareProps = {
   wsSendMessage?: ActionCreatorWithPayload<unknown>;
   onMessage: ActionCreatorWithPayload<unknown>;
   onError: ActionCreatorWithPayload<string>;
@@ -15,9 +19,11 @@ export type socketMiddlewareProps = {
   wsDisconnect: ActionCreatorWithoutPayload;
 };
 
-export const socketMiddleware = (wsActions: socketMiddlewareProps) => {
-  return (store: any) => {
-    let socket: any = null;
+export const socketMiddleware = (
+  wsActions: SocketMiddlewareProps
+): Middleware => {
+  return (store: MiddlewareAPI<AppDispatch, RootState>) => {
+    let socket: WebSocket | null = null;
 
     return (next: any) => (action: PayloadAction<any>) => {
       const { dispatch } = store;
@@ -43,11 +49,11 @@ export const socketMiddleware = (wsActions: socketMiddlewareProps) => {
           dispatch(onOpen());
         };
 
-        socket.onerror = (event: any) => {
+        socket.onerror = (event) => {
           dispatch(onError("Error"));
         };
 
-        socket.onmessage = (event: any) => {
+        socket.onmessage = (event) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           if (parsedData.message === "Invalid or missing token") {
@@ -56,7 +62,7 @@ export const socketMiddleware = (wsActions: socketMiddlewareProps) => {
           dispatch(onMessage(parsedData));
         };
 
-        socket.onclose = (event: any) => {
+        socket.onclose = (event) => {
           dispatch(onClose());
         };
 

@@ -212,7 +212,22 @@ const App = memo(() => {
           />
         </Routes>
       )}
-      <Toaster />
+      <Toaster
+        toastOptions={{
+          success: {
+            style: {
+              color: "#fff",
+              background: "#4C4CFF",
+            },
+          },
+          error: {
+            style: {
+              color: "#fff",
+              background: "#4C4CFF",
+            },
+          },
+        }}
+      />
     </Provider>
   );
 });
