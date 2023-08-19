@@ -25,7 +25,7 @@ export const socketMiddleware = (
   return (store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
 
-    return (next: any) => (action: PayloadAction<any>) => {
+    return (next) => (action) => {
       const { dispatch } = store;
       const { type } = action;
       const {

@@ -1,7 +1,7 @@
 import styles from "./forgot-password.module.css";
 import cn from "classnames";
 import { Link, useNavigate } from "react-router-dom";
-import { FormEvent, useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { useAppSelector } from "../../components/app/app";
 import { fetchRequest, handleResponse } from "../../utils/api/api";
 
@@ -18,7 +18,7 @@ function ForgotPassword() {
   const navigate = useNavigate();
   const errorMessage = useAppSelector((state) => state.user.error);
 
-  function handleChange(event: any) {
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     setForgotPassFormData((prev) => ({
       ...prev,
