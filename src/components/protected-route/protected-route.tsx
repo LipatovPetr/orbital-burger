@@ -20,7 +20,12 @@ const Protected = ({ onlyUnAuth = false, component }: ProtectedProps) => {
   }
 
   if (!onlyUnAuth && !isUserLogged) {
-    return <Navigate to="/login" state={{ from: location }} />;
+    return (
+      <Navigate
+        to="/login"
+        state={{ from: location, routeMessage: "Сначала авторизируйтесь" }}
+      />
+    );
   }
   return component;
 };

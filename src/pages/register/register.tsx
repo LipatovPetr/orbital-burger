@@ -26,12 +26,15 @@ function Register() {
   const registerStatus = useAppSelector((state) => state.user.registerStatus);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(clearError());
-      return () => {
-        clearTimeout(timer);
-      };
-    }, 3000);
+    function clearFormError() {
+      const timer = setTimeout(() => {
+        dispatch(clearError());
+        return () => {
+          clearTimeout(timer);
+        };
+      }, 3000);
+    }
+    clearFormError();
   }, [errorMessage]);
 
   function handleChange(event: any): void {

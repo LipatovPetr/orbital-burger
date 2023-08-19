@@ -41,7 +41,9 @@ function ConstructorSection() {
 
   const handleOrderClick = () => {
     if (!isUserLogged) {
-      return navigate("/login");
+      return navigate("/login", {
+        state: { routeMessage: "Сначала авторизируйтесь" },
+      });
     }
     dispatch(postData(orderData));
     dispatch(checkoutPopupOpened());

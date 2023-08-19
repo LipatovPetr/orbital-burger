@@ -1,9 +1,10 @@
 import styles from "./login.module.css";
 import cn from "classnames";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../components/app/app";
 import { login, clearError } from "../../store/slices/user/user";
+import toast from "react-hot-toast";
 
 import {
   EmailInput,
@@ -17,16 +18,31 @@ function Login() {
     password: "",
   });
   const dispatch = useAppDispatch();
+  const location = useLocation();
+
   // const formElement = useRef<HTMLFormElement>()!;
   const errorMessage = useAppSelector((state) => state.user.error);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(clearError());
-      return () => {
-        clearTimeout(timer);
-      };
-    }, 3000);
+    function renderRouteMessage() {
+      if (location.state && location.state.routeMessage) {
+        const notify = () => toast.error(location.state.routeMessage);
+        notify();
+      }
+    }
+    renderRouteMessage();
+  }, [location.state]);
+
+  useEffect(() => {
+    function clearFormError() {
+      const timer = setTimeout(() => {
+        dispatch(clearError());
+        return () => {
+          clearTimeout(timer);
+        };
+      }, 3000);
+    }
+    clearFormError();
   }, [errorMessage]);
 
   function handleChange(event: any) {
@@ -45,7 +61,14 @@ function Login() {
   return (
     <div className={styles.section}>
       <div className={styles.container}>
-        <h2 className={styles.heading}>Вход</h2>
+        <h2
+          className={styles.heading}
+          onClick={() => {
+            console.log(location);
+          }}
+        >
+          Вход
+        </h2>
         <form
           // ref={formElement}
           name="Login form"

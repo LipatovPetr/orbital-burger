@@ -9,8 +9,11 @@ import Placeholder from "./placeholder/placeholder";
 import { INGREDIENTS_TYPES } from "../../../utils/constants";
 import { useAppSelector } from "../../../components/app/app";
 import { useInView } from "react-intersection-observer";
+import { useLocation } from "react-router-dom";
 
 const IngredientsSection = memo(() => {
+  const location = useLocation();
+
   const [current, setCurrent] = useState(INGREDIENTS_TYPES.buns);
   const [bunsRef, bunsInView, bunsEntry] = useInView({ threshold: 0 });
   const [saucesRef, saucesInView, saucesEntry] = useInView({ threshold: 0 });
@@ -31,7 +34,12 @@ const IngredientsSection = memo(() => {
 
   return (
     <div className={styles.section}>
-      <h1 className={cn(styles.heading, "text", "text_type_main-large")}>
+      <h1
+        className={cn(styles.heading, "text", "text_type_main-large")}
+        onClick={() => {
+          console.log(location);
+        }}
+      >
         Соберите бургер
       </h1>
 
