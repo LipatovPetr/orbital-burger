@@ -14,7 +14,7 @@ import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 // Components
 
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
-import Layout from "../layout/layout.jsx";
+import Layout from "../layout/layout";
 import ProfileLayout from "../profile-layout/profile-layout";
 import Modal from "../modal/modal";
 import IngredientDetails from "../modal/ingredient-details/ingredient-details";
