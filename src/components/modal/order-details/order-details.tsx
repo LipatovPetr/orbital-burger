@@ -1,16 +1,27 @@
 import styles from "./order-details.module.css";
+
+// hooks
+
+import { useState, useEffect, useMemo } from "react";
 import { useAppSelector } from "../../app/app";
 import { useParams } from "react-router-dom";
+
+// components
+
+import Preloader from "../../preloader/preloader";
+import IngredientCard from "../../ingredient-card/ingredient-card";
 import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientCard from "../../ingredient-card/ingredient-card";
-import { fetchRequest, handleResponse } from "../../../utils/api/api";
-import Preloader from "../../preloader/preloader";
-import { useState, useEffect, useMemo } from "react";
-import { IngredientItem } from "../../../store/slices/burger-ingredients/types";
+
+// types
+
 import { SuccessOrderFetchResponse, OrderItemExtended } from "./types";
+
+// functions
+
+import { fetchRequest, handleResponse } from "../../../utils/api/api";
 import {
   calculateTotalPrice,
   getOrderIngredients,
@@ -75,6 +86,7 @@ function OrderDetails() {
               name={item.name}
               count={item.count}
               price={item.price}
+              key={item._id}
             />
           );
         })}

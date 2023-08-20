@@ -1,29 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, FormEvent } from "react";
 import { useAppDispatch, useAppSelector } from "../../components/app/app";
 import { Link } from "react-router-dom";
 import { register, clearError } from "../../store/slices/user/user";
-import toast from "react-hot-toast";
 import cn from "classnames";
-
+import { useFormInputs } from "../../hooks/useForm";
 import styles from "./register.module.css";
-
 import {
   Input,
   EmailInput,
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { UserAllFields } from "../../store/slices/user/types";
 
 function Register() {
-  const [registerFormData, setRegisterFormData] = useState({
-    email: "",
-    password: "",
-    name: "",
-  });
-
   const dispatch = useAppDispatch();
   const errorMessage = useAppSelector((state) => state.user.error);
-  const registerStatus = useAppSelector((state) => state.user.registerStatus);
+  const { handleChange, values } = useFormInputs();
 
   useEffect(() => {
     function clearFormError() {
@@ -35,21 +28,11 @@ function Register() {
       }, 3000);
     }
     clearFormError();
-  }, [errorMessage]);
+  }, [dispatch, errorMessage]);
 
-  function handleChange(event: any): void {
-    console.log(event);
-    console.log(typeof event);
-    const { name, value } = event.target;
-    setRegisterFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  }
-
-  function handleSubmit(event: any): void {
+  function handleSubmit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
-    dispatch(register(registerFormData));
+    dispatch(register(values as UserAllFields));
   }
 
   return (
@@ -62,7 +45,7 @@ function Register() {
         >
           <Input
             name="name"
-            value={registerFormData.name}
+            value={values.name}
             type={"text"}
             placeholder={"Имя"}
             onChange={handleChange}
@@ -70,14 +53,14 @@ function Register() {
           />
           <EmailInput
             name="email"
-            value={registerFormData.email}
+            value={values.email}
             inputMode="email"
             onChange={handleChange}
             required
           />
           <PasswordInput
             name="password"
-            value={registerFormData.password}
+            value={values.password}
             inputMode="text"
             onChange={handleChange}
             required

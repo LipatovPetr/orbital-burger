@@ -1,6 +1,6 @@
 import styles from "./profile-edit.module.css";
 import cn from "classnames";
-import { useState } from "react";
+import { SyntheticEvent, useState, ChangeEvent, FormEvent } from "react";
 import { useAppSelector, useAppDispatch } from "../../../components/app/app";
 import { editUser, clearError } from "../../../store/slices/user/user";
 import { UserAllFields } from "../../../store/slices/user/types";
@@ -11,54 +11,49 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useFormInputs } from "../../../hooks/useForm";
+import { useEffect } from "react";
+import Preloader from "../../../components/preloader/preloader";
 
 function Profile() {
   const dispatch = useAppDispatch();
-
   const user = useAppSelector((state) => state.user.user)!;
+  const { values, handleChange, setValues } = useFormInputs();
 
-  const [formData, setRegisterFormData] = useState<UserAllFields>({
-    name: user.name,
-    email: user.email,
-    password: "",
-  });
+  useEffect(() => {
+    setValues({
+      name: user.name,
+      email: user.email,
+      password: "",
+    });
+  }, []);
 
   const isFormChanged =
-    formData.name !== user.name ||
-    formData.email !== user.email ||
-    formData.password;
+    values.name !== user.name || values.email !== user.email || values.password;
 
-  function handleChange(event: any) {
-    const { name, value } = event.target;
-    setRegisterFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  }
-
-  function handleSubmit(event: any) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    dispatch(editUser(formData));
-    setRegisterFormData({
-      ...formData,
+    dispatch(editUser(values));
+    setValues({
+      ...values,
       password: "",
     });
   }
 
-  function handleReset(event: any) {
+  function handleReset(event: SyntheticEvent) {
     event.preventDefault();
-    setRegisterFormData({
+    setValues({
       name: user.name,
       email: user.email,
       password: "",
     });
   }
 
-  return (
+  return values.name ? (
     <form onSubmit={handleSubmit} className={cn(styles.container)}>
       <Input
         type={"text"}
-        value={formData.name}
+        value={values.name}
         name={"name"}
         placeholder={"Имя"}
         icon="EditIcon"
@@ -68,16 +63,15 @@ function Profile() {
         required
       />
       <EmailInput
-        value={formData.email}
+        value={values.email}
         name={"email"}
         placeholder="Логин"
         isIcon={true}
-        // icon="EditIcon"
         onChange={handleChange}
         required
       />
       <PasswordInput
-        value={formData.password}
+        value={values.password || ""}
         name={"password"}
         icon="EditIcon"
         onChange={handleChange}
@@ -101,6 +95,8 @@ function Profile() {
         </div>
       )}
     </form>
+  ) : (
+    <Preloader />
   );
 }
 

@@ -1,37 +1,37 @@
 import { useRef, RefObject } from "react";
 import styles from "./stuffing-card.module.css";
 import cn from "classnames";
+import type { Identifier, XYCoord } from "dnd-core";
 
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useAppDispatch } from "../../../../components/app/app";
-import { IngredientItem } from "../../../../store/slices/burger-ingredients/types";
+import { StuffingCardProps, DraggedCard } from "./types";
 import { useDrag, useDrop } from "react-dnd";
 import {
   ingredientMoved,
   removeItem,
 } from "../../../../store/slices/burger-constructor/burger-constructor";
 
-export type StuffingCardProps = {
-  ingredient: IngredientItem;
-  index: number;
-};
-
 function StuffingCard({ ingredient, index }: StuffingCardProps) {
   const ref: RefObject<HTMLDivElement> = useRef(null);
   const dispatch = useAppDispatch();
   const uuid = ingredient.uuid;
 
-  const [{ handlerId }, drop] = useDrop({
+  const [{ handlerId }, drop] = useDrop<
+    DraggedCard,
+    void,
+    { handlerId: Identifier | null }
+  >({
     accept: "stuffing",
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item: any, monitor) {
+    hover(item, monitor) {
       if (!ref.current) {
         return;
       }

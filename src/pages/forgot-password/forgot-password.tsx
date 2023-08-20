@@ -1,7 +1,7 @@
 import styles from "./forgot-password.module.css";
 import cn from "classnames";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, ChangeEvent, FormEvent } from "react";
+import { FormEvent } from "react";
 import { useAppSelector } from "../../components/app/app";
 import { fetchRequest, handleResponse } from "../../utils/api/api";
 
@@ -9,22 +9,12 @@ import {
   EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useFormInputs } from "../../hooks/useForm";
 
 function ForgotPassword() {
-  const [forgotPassFormData, setForgotPassFormData] = useState({
-    email: "",
-  });
-
   const navigate = useNavigate();
   const errorMessage = useAppSelector((state) => state.user.error);
-
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    const { name, value } = event.target;
-    setForgotPassFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  }
+  const { values, handleChange } = useFormInputs();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -34,7 +24,7 @@ function ForgotPassword() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(forgotPassFormData),
+        body: JSON.stringify(values),
       });
       handleResponse(res);
       localStorage.setItem("password-status", "reset-approved");
@@ -58,7 +48,7 @@ function ForgotPassword() {
         >
           <EmailInput
             onChange={handleChange}
-            value={forgotPassFormData.email}
+            value={values.email}
             name="email"
             inputMode="email"
             required

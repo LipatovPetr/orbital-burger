@@ -89,6 +89,7 @@ function OrderView() {
                 name={item.name}
                 count={item.count}
                 price={item.price}
+                key={item._id}
               />
             );
           })}

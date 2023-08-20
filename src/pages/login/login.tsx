@@ -1,10 +1,12 @@
 import styles from "./login.module.css";
 import cn from "classnames";
 import { Link, useLocation } from "react-router-dom";
-import { useRef, useState, useEffect } from "react";
+import { useEffect, FormEvent } from "react";
 import { useAppDispatch, useAppSelector } from "../../components/app/app";
 import { login, clearError } from "../../store/slices/user/user";
 import toast from "react-hot-toast";
+import { useFormInputs } from "../../hooks/useForm";
+import { UserEmailAndPassword } from "../../store/slices/user/types";
 
 import {
   EmailInput,
@@ -13,14 +15,10 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function Login() {
-  const [loginFormData, setLoginFormData] = useState({
-    email: "",
-    password: "",
-  });
   const dispatch = useAppDispatch();
   const location = useLocation();
+  const { handleChange, values } = useFormInputs();
 
-  // const formElement = useRef<HTMLFormElement>()!;
   const errorMessage = useAppSelector((state) => state.user.error);
 
   useEffect(() => {
@@ -43,34 +41,18 @@ function Login() {
       }, 3000);
     }
     clearFormError();
-  }, [errorMessage]);
+  }, [dispatch, errorMessage]);
 
-  function handleChange(event: any) {
-    const { name, value } = event.target;
-    setLoginFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  }
-
-  function handleSubmit(event: any) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    dispatch(login(loginFormData));
+    dispatch(login(values as UserEmailAndPassword));
   }
 
   return (
     <div className={styles.section}>
       <div className={styles.container}>
-        <h2
-          className={styles.heading}
-          onClick={() => {
-            console.log(location);
-          }}
-        >
-          Вход
-        </h2>
+        <h2 className={styles.heading}>Вход</h2>
         <form
-          // ref={formElement}
           name="Login form"
           onSubmit={handleSubmit}
           className={cn(styles.inputsContainer, "mt-6")}
@@ -79,14 +61,14 @@ function Login() {
             name="email"
             inputMode="email"
             onChange={handleChange}
-            value={loginFormData.email}
+            value={values.email}
             required
           />
           <PasswordInput
             name="password"
             inputMode="text"
             onChange={handleChange}
-            value={loginFormData.password}
+            value={values.password}
             required
           />
           {errorMessage ? (

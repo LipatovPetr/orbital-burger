@@ -1,5 +1,7 @@
 import { SERVER_API } from "../constants";
-import { ServerResponse } from "./types";
+import { ServerResponse, SuccessTokensRefresh, apiOptions } from "./types";
+
+import { SuccessAuthorizationResponse } from "../../store/slices/user/types";
 
 export async function handleResponse<T extends ServerResponse>(
   res: Response
@@ -32,7 +34,7 @@ export const patchRequest = async (
   return res;
 };
 
-export const refreshToken = (type: string) => {
+export const refreshToken = (type: string): Promise<SuccessTokensRefresh> => {
   return fetch(`${SERVER_API + type}`, {
     method: "POST",
     headers: {
@@ -41,21 +43,21 @@ export const refreshToken = (type: string) => {
     body: JSON.stringify({
       token: localStorage.getItem("refreshToken"),
     }),
-  }).then((res) => handleResponse(res));
+  }).then((res) => handleResponse<SuccessTokensRefresh>(res));
 };
 
-export const fetchWithRefresh = async <T extends ServerResponse>(
+export const fetchWithRefresh = async (
   type: string,
-  options: any
-): Promise<T> => {
+  options: apiOptions
+): Promise<SuccessAuthorizationResponse> => {
   try {
     const res = await fetch(`${SERVER_API + type}`, options);
-    const jsonData = await handleResponse<T>(res);
+    const jsonData = await handleResponse<SuccessAuthorizationResponse>(res);
     return jsonData;
-  } catch (err: any) {
-    if (err.message === "jwt expired") {
+  } catch (err) {
+    if (err instanceof Error && err.message === "jwt expired") {
       console.log("Токен доступа устарел");
-      const refreshData: any = await refreshToken("/auth/token");
+      const refreshData = await refreshToken("/auth/token");
       if (!refreshData.success) {
         return Promise.reject(refreshData);
       }
@@ -64,7 +66,7 @@ export const fetchWithRefresh = async <T extends ServerResponse>(
       options.headers.authorization = refreshData.accessToken;
       const res = await fetch(`${SERVER_API + type}`, options);
       console.log("Токен обновлен,авторизация пройдена");
-      return await handleResponse<T>(res);
+      return await handleResponse<SuccessAuthorizationResponse>(res);
     } else {
       return Promise.reject(err);
     }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import styles from "./reset-password.module.css";
 import cn from "classnames";
 import { fetchRequest, handleResponse } from "../../utils/api/api";
@@ -9,32 +9,22 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useFormInputs } from "../../hooks/useForm";
 
 function ResetPassword() {
   const navigate = useNavigate();
   const isResetInitiated = localStorage.getItem("password-status");
-  const [resetPassFormData, setResetPassFormData] = useState({
-    password: "",
-    token: "",
-  });
   const [errorMessage, setErrorMessage] = useState(null);
+  const { handleChange, values } = useFormInputs();
 
-  function handleChange(event: any): void {
-    const { name, value } = event.target;
-    setResetPassFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  }
-
-  async function handleSubmit(event: any) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     return fetchRequest("/password-reset/reset", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(resetPassFormData),
+      body: JSON.stringify(values),
     })
       .then((res) => {
         return handleResponse(res);
@@ -64,7 +54,7 @@ function ResetPassword() {
           >
             <PasswordInput
               name="password"
-              value={resetPassFormData.password}
+              value={values.password}
               placeholder={"Введите новый пароль"}
               onChange={handleChange}
               inputMode="text"
@@ -72,7 +62,7 @@ function ResetPassword() {
             />
             <Input
               name="token"
-              value={resetPassFormData.token}
+              value={values.token}
               type={"text"}
               inputMode="text"
               placeholder={"Введите код из письма"}

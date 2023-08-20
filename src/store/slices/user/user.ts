@@ -30,80 +30,51 @@ export const login = createAsyncThunk<
   SuccessAuthorizationResponseWithTokens,
   UserEmailAndPassword
 >("user/login", async (data) => {
-  try {
-    const res = await fetchRequest("/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    const jsonData =
-      await handleResponse<SuccessAuthorizationResponseWithTokens>(res);
-    localStorage.setItem("accessToken", jsonData.accessToken);
-    localStorage.setItem("refreshToken", jsonData.refreshToken);
-    return jsonData;
-  } catch (error) {
-    throw error;
-  }
+  const res = await fetchRequest("/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  const jsonData = await handleResponse<SuccessAuthorizationResponseWithTokens>(
+    res
+  );
+  localStorage.setItem("accessToken", jsonData.accessToken);
+  localStorage.setItem("refreshToken", jsonData.refreshToken);
+  return jsonData;
 });
 
 export const register = createAsyncThunk<
   SuccessAuthorizationResponseWithTokens,
   UserAllFields
 >("user/register", async (data) => {
-  try {
-    const res = await fetchRequest("/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    const jsonData =
-      await handleResponse<SuccessAuthorizationResponseWithTokens>(res);
-    localStorage.setItem("accessToken", jsonData.accessToken);
-    localStorage.setItem("refreshToken", jsonData.refreshToken);
-    return jsonData;
-  } catch (error) {
-    throw error;
-  }
-});
-
-export const logout = createAsyncThunk("user/logout", async () => {
-  try {
-    const res = await fetchRequest("/auth/logout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
-    });
-    const jsonData = await handleResponse(res);
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    return jsonData;
-  } catch (error) {
-    throw error;
-  }
+  const res = await fetchRequest("/auth/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  const jsonData = await handleResponse<SuccessAuthorizationResponseWithTokens>(
+    res
+  );
+  localStorage.setItem("accessToken", jsonData.accessToken);
+  localStorage.setItem("refreshToken", jsonData.refreshToken);
+  return jsonData;
 });
 
 export const editUser = createAsyncThunk<
   SuccessAuthorizationResponse,
   UserAllFieldsOptionals
 >("user/edit", async (data) => {
-  try {
-    const res = await patchRequest(
-      "/auth/user",
-      data,
-      localStorage.getItem("accessToken")!
-    );
-    const jsonData = await handleResponse<SuccessAuthorizationResponse>(res);
-    console.log(jsonData);
-    return jsonData;
-  } catch (error) {
-    throw error;
-  }
+  const res = await patchRequest(
+    "/auth/user",
+    data,
+    localStorage.getItem("accessToken")!
+  );
+  const jsonData = await handleResponse<SuccessAuthorizationResponse>(res);
+  return jsonData;
 });
 
 export const authorizeUser = createAsyncThunk<
@@ -111,22 +82,33 @@ export const authorizeUser = createAsyncThunk<
   string
 >("user/auth", async (token) => {
   try {
-    const res = await fetchWithRefresh<SuccessAuthorizationResponse>(
-      "/auth/user",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: token,
-        },
-      }
-    );
+    const res = await fetchWithRefresh("/auth/user", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+      },
+    });
     return res;
   } catch (error) {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     throw error;
   }
+});
+
+export const logout = createAsyncThunk("user/logout", async () => {
+  const res = await fetchRequest("/auth/logout", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
+  });
+  const jsonData = await handleResponse(res);
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  return jsonData;
 });
 
 const userSlice = createSlice({
@@ -152,6 +134,7 @@ const userSlice = createSlice({
         state.user = { ...action.payload.user };
       })
       .addCase(login.rejected, (state, action) => {
+        console.log(action);
         state.loginStatus = "failed";
         state.error = action.error.message;
       })

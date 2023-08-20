@@ -58,12 +58,7 @@ function OrderCard({ data, isProfile = false }: OrderCardProps) {
       className={styles.card}
     >
       <div className={styles.infoContainer}>
-        <p
-          className={styles.number}
-          onClick={() => {
-            console.log(data);
-          }}
-        >{`#${number}`}</p>
+        <p className={styles.number}>{`#${number}`}</p>
         <div className={styles.dateContainer}>
           <FormattedDate className={styles.date} date={new Date(createdAt)} />
           <span>i-GMT+3</span>

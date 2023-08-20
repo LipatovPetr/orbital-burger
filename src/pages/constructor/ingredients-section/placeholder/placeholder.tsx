@@ -1,7 +1,7 @@
 import React from "react";
 import ContentLoader from "react-content-loader";
 
-const Placeholder = (props: any) => (
+const Placeholder = () => (
   <ContentLoader
     speed={0.8}
     width={600}
@@ -9,7 +9,6 @@ const Placeholder = (props: any) => (
     viewBox="0 0 600 900"
     backgroundColor="#1b1b27"
     foregroundColor="#000001"
-    {...props}
   >
     <rect x="12" y="66" rx="0" ry="0" width="272" height="208" />
     <rect x="307" y="66" rx="0" ry="0" width="272" height="208" />
