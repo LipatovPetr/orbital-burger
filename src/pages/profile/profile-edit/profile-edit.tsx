@@ -53,6 +53,7 @@ function Profile() {
     <form onSubmit={handleSubmit} className={cn(styles.container)}>
       <Input
         type={"text"}
+        inputMode={"text"}
         value={values.name}
         name={"name"}
         placeholder={"Имя"}
@@ -61,6 +62,7 @@ function Profile() {
         minLength={2}
         maxLength={30}
         required
+        contentEditable="true"
       />
       <EmailInput
         value={values.email}

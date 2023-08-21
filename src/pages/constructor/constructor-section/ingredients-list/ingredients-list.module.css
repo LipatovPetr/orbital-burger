@@ -12,6 +12,8 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  max-height: 400px;
+
   /* flex-basis: auto; */
 }
 
@@ -29,9 +31,9 @@
   border: 3px solid rgb(76, 76, 254);
 }
 
-@media (max-height: 990px) {
+@media (max-height: 900px) {
   .scrolledSection {
-    max-height: 400px;
+    max-height: 300px;
   }
 }
 
