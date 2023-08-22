@@ -54,7 +54,7 @@ function ResetPassword() {
           >
             <PasswordInput
               name="password"
-              value={values.password}
+              value={values.password || ""}
               placeholder={"Введите новый пароль"}
               onChange={handleChange}
               inputMode="text"
@@ -62,7 +62,7 @@ function ResetPassword() {
             />
             <Input
               name="token"
-              value={values.token}
+              value={values.token || ""}
               type={"text"}
               inputMode="text"
               placeholder={"Введите код из письма"}

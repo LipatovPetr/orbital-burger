@@ -18,7 +18,6 @@ function Login() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { handleChange, values } = useFormInputs();
-
   const errorMessage = useAppSelector((state) => state.user.error);
 
   useEffect(() => {
@@ -61,14 +60,14 @@ function Login() {
             name="email"
             inputMode="email"
             onChange={handleChange}
-            value={values.email}
+            value={values.email || ""}
             required
           />
           <PasswordInput
             name="password"
             inputMode="text"
             onChange={handleChange}
-            value={values.password}
+            value={values.password || ""}
             required
           />
           {errorMessage ? (

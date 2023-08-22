@@ -13,8 +13,6 @@
   flex-direction: column;
   gap: 16px;
   max-height: 400px;
-
-  /* flex-basis: auto; */
 }
 
 .scrolledSection::-webkit-scrollbar {

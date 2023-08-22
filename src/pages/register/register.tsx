@@ -45,7 +45,7 @@ function Register() {
         >
           <Input
             name="name"
-            value={values.name}
+            value={values.name || ""}
             type={"text"}
             placeholder={"Имя"}
             onChange={handleChange}
@@ -53,14 +53,14 @@ function Register() {
           />
           <EmailInput
             name="email"
-            value={values.email}
+            value={values.email || ""}
             inputMode="email"
             onChange={handleChange}
             required
           />
           <PasswordInput
             name="password"
-            value={values.password}
+            value={values.password || ""}
             inputMode="text"
             onChange={handleChange}
             required

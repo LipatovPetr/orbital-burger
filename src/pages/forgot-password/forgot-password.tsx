@@ -48,7 +48,7 @@ function ForgotPassword() {
         >
           <EmailInput
             onChange={handleChange}
-            value={values.email}
+            value={values.email || ""}
             name="email"
             inputMode="email"
             required
