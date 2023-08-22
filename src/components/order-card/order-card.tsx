@@ -1,17 +1,18 @@
-import React, { useMemo, useEffect, useState } from "react";
-import { useAppSelector } from "../app/app";
-import {
-  CurrencyIcon,
-  FormattedDate,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import cn from "classnames";
 import styles from "./order-card.module.css";
+import { useAppSelector } from "../app/app";
 import { Link, useLocation } from "react-router-dom";
+import { useMemo, useEffect, useState } from "react";
 import { OrderItem } from "../../store/FeedAllOrders/types";
 import {
   getOrderIngredients,
   calculateTotalPrice,
   mapStatusToOrderStatus,
 } from "../../utils/helpers/order.helpers";
+import {
+  CurrencyIcon,
+  FormattedDate,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
 type OrderCardProps = {
   data: OrderItem;
@@ -64,7 +65,14 @@ function OrderCard({ data, isProfile = false }: OrderCardProps) {
           <span>i-GMT+3</span>
         </div>
       </div>
-      <p className={styles.title}>{name}</p>
+
+      <p
+        className={cn(styles.title, {
+          [styles["title-text-small"]]: name.length > 100,
+        })}
+      >
+        {name}
+      </p>
       {isProfile && (
         <p className={status === "done" ? styles.status_done : styles.status}>
           {orderStatus}

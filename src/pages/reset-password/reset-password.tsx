@@ -52,6 +52,7 @@ function ResetPassword() {
       setErrorMessage(null);
     }, 3000);
   }
+
   if (isResetInitiated) {
     return (
       <div className={styles.section}>

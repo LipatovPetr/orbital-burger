@@ -1,4 +1,5 @@
 import styles from "./order-details.module.css";
+import cn from "classnames";
 
 // hooks
 
@@ -73,7 +74,11 @@ function OrderDetails() {
   return order ? (
     <div className={styles.container}>
       <p className={styles.number}>{`#${order.number}`}</p>
-      <p className={styles.name} onClick={() => console.log(order)}>
+      <p
+        className={cn(styles.name, {
+          [styles["name-text-small"]]: order.name.length > 100,
+        })}
+      >
         {order.name}
       </p>
       <p className={styles.status}>{orderStatus}</p>

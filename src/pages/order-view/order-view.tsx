@@ -1,4 +1,5 @@
 import styles from "./order-view.module.css";
+import cn from "classnames";
 
 // hooks
 
@@ -78,7 +79,13 @@ function OrderView() {
     <div className={styles.section}>
       <div className={styles.container}>
         <p className={styles.number}>{`#${order.number}`}</p>
-        <p className={styles.name}>{order.name}</p>
+        <p
+          className={cn(styles.name, {
+            [styles["name-text-small"]]: order.name.length > 100,
+          })}
+        >
+          {order.name}
+        </p>
         <p className={styles.status}>{orderStatus}</p>
         <p className={styles.text}>Состав:</p>
         <div className={styles.list}>
