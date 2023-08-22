@@ -10,12 +10,21 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useFormInputs } from "../../hooks/useForm";
+import { useEffect } from "react";
 
 function ResetPassword() {
   const navigate = useNavigate();
   const isResetInitiated = localStorage.getItem("password-status");
   const [errorMessage, setErrorMessage] = useState(null);
   const { handleChange, values } = useFormInputs();
+
+  useEffect(() => {
+    if (isResetInitiated) {
+      return () => {
+        localStorage.removeItem("password-status");
+      };
+    }
+  }, []);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
