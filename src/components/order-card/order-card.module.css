@@ -19,11 +19,15 @@
   margin-left: 24px;
 }
 
-.date {
+.dateContainer {
   composes: text text_type_main-default text_color_inactive from global;
+  margin-right: 24px;
+}
+
+.date {
   padding: 0;
   margin: 0;
-  margin-right: 24px;
+  margin-right: 10px;
 }
 
 .title {
@@ -32,6 +36,10 @@
   margin: 0;
   margin-top: 24px;
   margin-left: 24px;
+}
+
+.title-text-small {
+  font-size: 18px;
 }
 
 .status {

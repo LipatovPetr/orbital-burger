@@ -1,16 +1,18 @@
 .ingredients {
+  flex-grow: 1;
+  position: relative;
   display: flex;
   flex-direction: column;
 }
 
 .scrolledSection {
   position: relative;
-  max-height: 496px;
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  max-height: 400px;
 }
 
 .scrolledSection::-webkit-scrollbar {
@@ -27,9 +29,9 @@
   border: 3px solid rgb(76, 76, 254);
 }
 
-@media (max-height: 990px) {
+@media (max-height: 900px) {
   .scrolledSection {
-    max-height: 400px;
+    max-height: 300px;
   }
 }
 

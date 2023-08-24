@@ -19,9 +19,12 @@
 
 @media screen and (max-width: 1600px) {
   .name {
-    margin-top: 40px;
     font-size: 20px;
   }
+}
+
+.name-text-small {
+  font-size: 16px;
 }
 
 .status {
@@ -75,6 +78,7 @@
 
 .date {
   composes: text text_type_main-default text_color_inactive from global;
+  margin-right: 10px;
 }
 
 .priceContainer {

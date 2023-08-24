@@ -1,9 +1,10 @@
 .container {
   display: flex;
   justify-content: center;
-  border: 1px dotted #8585AD;
+  border: 1px dotted #8585ad;
   align-items: center;
   height: 150px;
+  flex-grow: 1;
 }
 
 .title {
