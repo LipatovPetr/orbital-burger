@@ -1,24 +1,26 @@
-# Project: Algorithm Visualization
+# Project: Orbital Burger Joint
 
 ## Description
-This project is a web application I built using React, TypeScript, and React Router, with the primary aim of visualizing various algorithms through animations to facilitate a better understanding of their workings. The project is designed for desktop use only.
+This project, known as "Orbital Burger Joint," is a web application built using React, TypeScript, Redux, React Router, WebSocket, and React DND (Drag and Drop). The primary focus of this project is to create a desktop-only application for ordering delicious burgers.
 
 ## Application Link
-[Application Link](https://algorithms-visualization-moj3jkh9g-lipatovpetr.vercel.app)
+[Application Link](https://react-burger-git-main-lipatovpetr.vercel.app/)
 
 ## GitHub Repository Link
-[GitHub Repository Link](https://github.com/LipatovPetr/algorithms-visualization)
+[GitHub Repository Link](https://github.com/LipatovPetr/react-burger)
 
 ## Technology Stack
 - React
 - TypeScript
+- Redux
 - React Router
+- WebSocket
+- React DND (Drag and Drop)
 
-## Interesting Features
-- I implemented fundamental algorithms like a stack, queue, and linked list using classes.
-- Special attention has been paid to React rendering to create animations that visually represent algorithm behavior based on the given technical specifications.
-- The project incorporates caching of recursive calls within a loop in a sorting method to optimize performance.
-- Functions used in the linked list are well-documented to aid other developers in understanding the code.
-- Throughout the project's development, I followed an iterative approach to thematic commits, resulting in a more organized development history.
+## Notable Features
+- Upon successful authentication, both the accessToken and refreshToken are stored in local storage. Upon reloading, the application checks for the accessToken in local storage and automatically authorizes the user if found.
+- Redux is used to manage shared states, and updates are implemented through actions, including data requests to the server.
+- WebSocket technology is employed for order management, ensuring real-time updates and communication.
+- React DND is used to enable ingredient addition and list sorting for a smooth user experience.
 
-I hope this project proves to be valuable for those interested in algorithm visualization and learning how algorithms work.
+These features collectively enhance the user experience and functionality of the application, making it a convenient and engaging platform for ordering customized burgers.
