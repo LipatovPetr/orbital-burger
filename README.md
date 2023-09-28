@@ -1,4 +1,4 @@
-# Project: Orbital Burger Joint
+# Project: Orbital Burger
 
 ## Description
 This project, known as "Orbital Burger Joint," is a web application built using React, TypeScript, Redux, React Router, WebSocket, and React DND (Drag and Drop). The primary focus of this project is to create a desktop-only application for ordering delicious burgers.
