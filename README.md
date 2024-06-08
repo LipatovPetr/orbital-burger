@@ -1,15 +1,9 @@
-# Project: Orbital Burger
+# Проект: Orbital Burger
 
-## Description
-This project, known as "Orbital Burger Joint," is a web application built using React, TypeScript, Redux, React Router, WebSocket, and React DND (Drag and Drop). The primary focus of this project is to create a desktop-only application for ordering delicious burgers.
+## Описание
+Веб-приложение, созданное для эфемерной бургерной, использует технологии React, TypeScript, Redux, React Router, WebSocket и React DND (Drag and Drop).
 
-## Application Link
-[Application Link](https://react-burger-git-main-lipatovpetr.vercel.app/)
-
-## GitHub Repository Link
-[GitHub Repository Link](https://github.com/LipatovPetr/react-burger)
-
-## Technology Stack
+## Технологический стек
 - React
 - TypeScript
 - Redux
@@ -17,10 +11,9 @@ This project, known as "Orbital Burger Joint," is a web application built using 
 - WebSocket
 - React DND (Drag and Drop)
 
-## Notable Features
-- Upon successful authentication, both the accessToken and refreshToken are stored in local storage. Upon reloading, the application checks for the accessToken in local storage and automatically authorizes the user if found.
-- Redux is used to manage shared states, and updates are implemented through actions, including data requests to the server.
-- WebSocket technology is employed for order management, ensuring real-time updates and communication.
-- React DND is used to enable ingredient addition and list sorting for a smooth user experience.
-
-These features collectively enhance the user experience and functionality of the application, making it a convenient and engaging platform for ordering customized burgers.
+## Особенности
+- После успешной аутентификации как accessToken, так и refreshToken сохраняются в локальном хранилище.
+- При перезагрузке приложения происходит проверка наличия accessToken в локальном хранилище, и пользователь автоматически авторизуется, если он найден.
+- Redux используется для управления общими состояниями, а обновления реализуются через действия, включая запросы данных на сервер.
+- Технология WebSocket используется для управления заказами, обеспечивая обновления и связь в реальном времени.
+- React DND используется для добавления ингредиентов и сортировки списка для плавного пользовательского опыта.
