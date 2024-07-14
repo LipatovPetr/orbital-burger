@@ -1,9 +1,11 @@
-# Проект: Orbital Burger
+# Orbital Burger App
 
-## Описание
-Веб-приложение, созданное для эфемерной бургерной, использует технологии React, TypeScript, Redux, React Router, WebSocket и React DND (Drag and Drop).
+## Description
 
-## Технологический стек
+A web application for a burger restaurant, built with React, TypeScript, Redux, React Router, WebSocket, and React DND (Drag and Drop).
+
+## Tech Stack
+
 - React
 - TypeScript
 - Redux
@@ -11,13 +13,14 @@
 - WebSocket
 - React DND (Drag and Drop)
 
-## Особенности
-- Реализована только десктоп-версия. 
-- React DND: пользователь может "собрать" свой бургер с помощью перетаскивания ингредиентов из меню.
-- WebSocket: страница заказов позволяет отследить статус приготовления заказа. 
-- Аутентификации:
-а) Пользователь должен зарегистрироваться, чтоы сделать заказ. 
-б) После успешной аутентификации accessToken и refreshToken сохраняются в локальном хранилище.
-в) При перезагрузке приложения происходит проверка наличия accessToken в локальном хранилище, и пользователь автоматически авторизуется, если он найден.
+## Features
 
-[Ссылка на приложение](https://react-burger-git-main-lipatovpetr.vercel.app/)
+- Only the desktop version is available.
+- React DND: Users can build their burgers by dragging and dropping ingredients from the menu.
+- WebSocket: Users can track the status of their order on the orders page.
+- Authentication:
+  a. Users have to register to place an order.
+  b. After logging in, accessToken and refreshToken are saved in local storage.
+  c. When the app reloads, it checks for the accessToken in local storage and automatically logs the user in if found.
+
+[Link to the application](https://react-burger-git-main-lipatovpetr.vercel.app/)
